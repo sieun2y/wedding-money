@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -22,10 +23,12 @@
         sans-serif;
       background: #f7f5f2;
       color: #333;
+      padding-bottom: 82px;
     }
 
     button,
-    input {
+    input,
+    textarea {
       font-family: inherit;
     }
 
@@ -38,7 +41,7 @@
       max-width: 620px;
       min-height: 100vh;
       margin: 0 auto;
-      padding: 32px 18px 50px;
+      padding: 32px 18px 30px;
     }
 
     .header {
@@ -109,8 +112,22 @@
       background: white;
     }
 
-    input:focus {
+    input:focus,
+    textarea:focus {
       border-color: #888;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 11px;
+      font-size: 15px;
+      outline: none;
+      resize: vertical;
+      min-height: 70px;
+      margin-bottom: 17px;
+      background: white;
     }
 
     .amount-buttons {
@@ -130,25 +147,6 @@
 
     .amount-button:active {
       background: #f1f1f1;
-
- .ticket-row {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  width: 100%;
-  margin-bottom: 17px;
-}
-
-.ticket-item {
-  flex: 1;
-  min-width: 0;
-}
-
-.ticket-item .label {
-  display: block;
-  text-align: center;
-  margin-bottom: 7px;
-}
     }
 
     .submit-button {
@@ -175,6 +173,16 @@
       word-break: break-word;
     }
 
+    /* 화면 전환 */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* 통계 */
     .summary {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -287,6 +295,17 @@
       background: #f1f1f1;
     }
 
+    .memo-text {
+      margin-top: 8px;
+      padding: 9px 10px;
+      background: #fafafa;
+      border-radius: 8px;
+      color: #777;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
     .delete-button {
       border: 1px solid #eee;
       background: #fff;
@@ -317,6 +336,42 @@
       margin-top: 20px;
     }
 
+    /* 하단 탭 */
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 620px;
+      background: rgba(255,255,255,0.96);
+      border-top: 1px solid #e8e8e8;
+      box-shadow: 0 -3px 15px rgba(0,0,0,0.06);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      z-index: 1000;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .nav-button {
+      border: none;
+      background: transparent;
+      padding: 12px 5px 11px;
+      color: #999;
+      font-size: 12px;
+    }
+
+    .nav-button .nav-icon {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    .nav-button.active {
+      color: #222;
+      font-weight: 700;
+    }
+
     @media (max-width: 420px) {
       .container {
         padding-left: 13px;
@@ -345,289 +400,259 @@
   </div>
 
 
-  <!-- 접수 -->
+  <!-- =========================
+       접수하기
+  ========================== -->
 
-  <div class="card">
+  <div id="page-register" class="page active">
 
-    <span class="label">구분</span>
+    <div class="card">
 
-    <div class="side-buttons">
+      <span class="label">구분</span>
+
+      <div class="side-buttons">
+
+        <button
+          type="button"
+          class="side-button active"
+          onclick="selectSide('신랑측', this)"
+        >
+          🤵 신랑측
+        </button>
+
+        <button
+          type="button"
+          class="side-button"
+          onclick="selectSide('신부측', this)"
+        >
+          👰 신부측
+        </button>
+
+      </div>
+
+
+      <span class="label">이름</span>
+
+      <input
+        id="name"
+        type="text"
+        placeholder="이름을 입력하세요"
+        autocomplete="off"
+      >
+
+
+      <span class="label">축의금</span>
+
+      <div class="amount-buttons">
+
+        <button
+          type="button"
+          class="amount-button"
+          onclick="setAmount(50000)"
+        >
+          5만원
+        </button>
+
+        <button
+          type="button"
+          class="amount-button"
+          onclick="setAmount(100000)"
+        >
+          10만원
+        </button>
+
+        <button
+          type="button"
+          class="amount-button"
+          onclick="setAmount(200000)"
+        >
+          20만원
+        </button>
+
+        <button
+          type="button"
+          class="amount-button"
+          onclick="setAmount(300000)"
+        >
+          30만원
+        </button>
+
+        <button
+          type="button"
+          class="amount-button"
+          onclick="setAmount(500000)"
+        >
+          50만원
+        </button>
+
+        <button
+          type="button"
+          class="amount-button"
+          onclick="setAmount(1000000)"
+        >
+          100만원
+        </button>
+
+      </div>
+
+      <input
+        id="amount"
+        type="number"
+        placeholder="금액을 직접 입력하세요"
+        min="0"
+      >
+
+
+      <span class="label">대인 식권</span>
+
+      <input
+        id="adultMeal"
+        type="number"
+        value="0"
+        min="0"
+        placeholder="대인 식권 수량"
+      >
+
+
+      <span class="label">소인 식권</span>
+
+      <input
+        id="childMeal"
+        type="number"
+        value="0"
+        min="0"
+        placeholder="소인 식권 수량"
+      >
+
+
+      <span class="label">답례봉투</span>
+
+      <input
+        id="replyEnvelope"
+        type="number"
+        value="0"
+        min="0"
+        placeholder="답례봉투 수량"
+      >
+
+
+      <span class="label">접수방법</span>
+
+      <div class="side-buttons">
+
+        <button
+          type="button"
+          id="cashButton"
+          class="side-button active"
+          onclick="selectPayment('현금', this)"
+        >
+          💵 현금
+        </button>
+
+        <button
+          type="button"
+          id="transferButton"
+          class="side-button"
+          onclick="selectPayment('계좌이체', this)"
+        >
+          🏦 계좌이체
+        </button>
+
+      </div>
+
+
+      <span class="label">메모</span>
+
+      <textarea
+        id="memo"
+        rows="2"
+        placeholder="필요한 내용을 메모해주세요"
+      ></textarea>
+
 
       <button
         type="button"
-        class="side-button active"
-        onclick="selectSide('신랑측', this)"
+        id="submitButton"
+        class="submit-button"
+        onclick="submitGift()"
       >
-        🤵 신랑측
+        접수하기
       </button>
 
-      <button
-        type="button"
-        class="side-button"
-        onclick="selectSide('신부측', this)"
-      >
-        👰 신부측
-      </button>
+      <div id="status" class="status"></div>
 
-    </div>
-
-
-    <span class="label">이름</span>
-
-    <input
-      id="name"
-      type="text"
-      placeholder="이름을 입력하세요"
-      autocomplete="off"
-    >
-
-
-    <span class="label">축의금</span>
-
-    <div class="amount-buttons">
-
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(50000)"
-      >
-        5만원
-      </button>
-
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(100000)"
-      >
-        10만원
-      </button>
-
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(200000)"
-      >
-        20만원
-      </button>
-
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(300000)"
-      >
-        30만원
-      </button>
-
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(500000)"
-      >
-        50만원
-      </button>
-
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(1000000)"
-      >
-        100만원
-      </button>
-
-    </div>
-
-    <input
-      id="amount"
-      type="number"
-      placeholder="금액을 직접 입력하세요"
-      min="0"
-    >
-
-  <div class="ticket-row">
-
-  <div class="ticket-item">
-    <span class="label">대인 식권</span>
-    <input
-      id="adultMeal"
-      type="number"
-      value="0"
-      min="0"
-      placeholder="0"
-    >
-  </div>
-
-  <div class="ticket-item">
-    <span class="label">소인 식권</span>
-    <input
-      id="childMeal"
-      type="number"
-      value="0"
-      min="0"
-      placeholder="0"
-    >
-  </div>
-
-  <div class="ticket-item">
-    <span class="label">답례봉투</span>
-    <input
-      id="replyEnvelope"
-      type="number"
-      value="0"
-      min="0"
-      placeholder="0"
-    >
-  </div>
-
-</div>
-    </div>
-
-    <span class="label">접수방법</span>
-
-    <div class="side-buttons">
-
-      <button
-        type="button"
-        id="cashButton"
-        class="side-button active"
-        onclick="selectPayment('현금', this)"
-      >
-        💵 현금
-      </button>
-
-      <button
-        type="button"
-        id="transferButton"
-        class="side-button"
-        onclick="selectPayment('계좌이체', this)"
-      >
-        🏦 계좌이체
-      </button>
-
-    </div>
-
-
-   <div class="input-group">
-  <label>메모</label>
-  <textarea
-    id="memo"
-    rows="2"
-    placeholder="필요한 내용을 메모해주세요"
-  ></textarea>
-</div>
-
-
-    <button
-      type="button"
-      id="submitButton"
-      class="submit-button"
-      onclick="submitGift()"
-    >
-      접수하기
-    </button>
-
-    <div id="status" class="status"></div>
-
-  </div>
-
-
-  <!-- 통계 -->
-
-  <div class="summary">
-
-    <div class="summary-box">
-      <div class="number" id="count">-</div>
-      <div class="title">전체 접수</div>
-    </div>
-
-    <div class="summary-box">
-      <div class="number" id="total">-</div>
-      <div class="title">총 금액</div>
-    </div>
-
-    <div class="summary-box">
-      <div class="number" id="adultMealTotal">-</div>
-      <div class="title">대인 식권</div>
-    </div>
-
-    <div class="summary-box">
-      <div class="number" id="childMealTotal">-</div>
-      <div class="title">소인 식권</div>
-    </div>
-
-    <div class="summary-box">
-      <div class="number" id="replyEnvelopeTotal">-</div>
-      <div class="title">답례봉투</div>
-    </div>
-
-    <div class="summary-box">
-      <div class="number" id="transferTotal">-</div>
-      <div class="title">계좌이체</div>
     </div>
 
   </div>
 
 
-  <!-- 접수내역 -->
+  <!-- =========================
+       접수내역
+  ========================== -->
 
-  <div class="card">
+  <div id="page-records" class="page">
 
-    <div class="list-header">
+    <div class="card">
 
-      <h2>📋 접수내역</h2>
+      <div class="list-header">
 
-      <button
-        type="button"
-        class="refresh-button"
-        onclick="loadRecords()"
+        <h2>📋 접수내역</h2>
+
+        <button
+          type="button"
+          class="refresh-button"
+          onclick="loadRecords()"
+        >
+          🔄 새로고침
+        </button>
+
+      </div>
+
+
+      <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="🔎 이름 검색"
+        oninput="renderRecords()"
       >
-        🔄 새로고침
-      </button>
-
-    </div>
 
 
-    <input
-      id="search"
-      class="search"
-      type="text"
-      placeholder="🔎 이름 검색"
-      oninput="renderRecords()"
-    >
+      <div class="filter-buttons">
+
+        <button
+          type="button"
+          class="filter-button active"
+          onclick="selectFilter('전체', this)"
+        >
+          전체
+        </button>
+
+        <button
+          type="button"
+          class="filter-button"
+          onclick="selectFilter('신랑측', this)"
+        >
+          🤵 신랑측
+        </button>
+
+        <button
+          type="button"
+          class="filter-button"
+          onclick="selectFilter('신부측', this)"
+        >
+          👰 신부측
+        </button>
+
+      </div>
 
 
-    <div class="filter-buttons">
+      <div id="recordList">
 
-      <button
-        type="button"
-        class="filter-button active"
-        onclick="selectFilter('전체', this)"
-      >
-        전체
-      </button>
+        <div class="empty">
+          불러오는 중...
+        </div>
 
-      <button
-        type="button"
-        class="filter-button"
-        onclick="selectFilter('신랑측', this)"
-      >
-        🤵 신랑측
-      </button>
-
-      <button
-        type="button"
-        class="filter-button"
-        onclick="selectFilter('신부측', this)"
-      >
-        👰 신부측
-      </button>
-
-    </div>
-
-
-    <div id="recordList">
-
-      <div class="empty">
-        불러오는 중...
       </div>
 
     </div>
@@ -635,11 +660,92 @@
   </div>
 
 
-  <div class="notice">
-    💐 축의대 접수 프로그램
+  <!-- =========================
+       총 현황
+  ========================== -->
+
+  <div id="page-summary" class="page">
+
+    <div class="summary">
+
+      <div class="summary-box">
+        <div class="number" id="count">-</div>
+        <div class="title">전체 접수</div>
+      </div>
+
+      <div class="summary-box">
+        <div class="number" id="total">-</div>
+        <div class="title">총 금액</div>
+      </div>
+
+      <div class="summary-box">
+        <div class="number" id="adultMealTotal">-</div>
+        <div class="title">대인 식권</div>
+      </div>
+
+      <div class="summary-box">
+        <div class="number" id="childMealTotal">-</div>
+        <div class="title">소인 식권</div>
+      </div>
+
+      <div class="summary-box">
+        <div class="number" id="replyEnvelopeTotal">-</div>
+        <div class="title">답례봉투</div>
+      </div>
+
+      <div class="summary-box">
+        <div class="number" id="transferTotal">-</div>
+        <div class="title">계좌이체</div>
+      </div>
+
+    </div>
+
+    <div class="notice">
+      💐 축의대 접수 프로그램
+    </div>
+
   </div>
 
 </div>
+
+
+<!-- =========================
+     하단 탭
+========================== -->
+
+<nav class="bottom-nav">
+
+  <button
+    type="button"
+    id="navRegister"
+    class="nav-button active"
+    onclick="showPage('register')"
+  >
+    <span class="nav-icon">✍️</span>
+    접수하기
+  </button>
+
+  <button
+    type="button"
+    id="navRecords"
+    class="nav-button"
+    onclick="showPage('records')"
+  >
+    <span class="nav-icon">📋</span>
+    접수내역
+  </button>
+
+  <button
+    type="button"
+    id="navSummary"
+    class="nav-button"
+    onclick="showPage('summary')"
+  >
+    <span class="nav-icon">📊</span>
+    총 현황
+  </button>
+
+</nav>
 
 
 <script>
@@ -680,6 +786,72 @@
 
   /*
    * =====================================
+   * 화면 전환
+   * =====================================
+   */
+
+  function showPage(page) {
+
+    document
+      .querySelectorAll(".page")
+      .forEach(function(section) {
+        section.classList.remove("active");
+      });
+
+
+    document
+      .getElementById("page-" + page)
+      .classList.add("active");
+
+
+    document
+      .querySelectorAll(".nav-button")
+      .forEach(function(button) {
+        button.classList.remove("active");
+      });
+
+
+    if (page === "register") {
+
+      document
+        .getElementById("navRegister")
+        .classList.add("active");
+
+    }
+
+
+    if (page === "records") {
+
+      document
+        .getElementById("navRecords")
+        .classList.add("active");
+
+      renderRecords();
+
+    }
+
+
+    if (page === "summary") {
+
+      document
+        .getElementById("navSummary")
+        .classList.add("active");
+
+      updateSummary();
+
+    }
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  /*
+   * =====================================
    * 신랑 / 신부 선택
    * =====================================
    */
@@ -688,15 +860,23 @@
 
     selectedSide = side;
 
+
     document
       .querySelectorAll(".side-button")
       .forEach(function(btn) {
 
-        btn.classList.remove("active");
+        if (
+          btn.id !== "cashButton" &&
+          btn.id !== "transferButton"
+        ) {
+          btn.classList.remove("active");
+        }
 
       });
 
+
     button.classList.add("active");
+
   }
 
 
@@ -710,6 +890,7 @@
 
     selectedPayment = payment;
 
+
     document
       .querySelectorAll("#cashButton, #transferButton")
       .forEach(function(btn) {
@@ -718,7 +899,9 @@
 
       });
 
+
     button.classList.add("active");
+
   }
 
 
@@ -774,9 +957,9 @@
       ) || 0;
 
 
-    const recorder =
+    const memo =
       document
-        .getElementById("recorder")
+        .getElementById("memo")
         .value
         .trim();
 
@@ -886,6 +1069,8 @@
 
       document.getElementById("replyEnvelope").value = "0";
 
+      document.getElementById("memo").value = "";
+
 
       selectedPayment = "현금";
 
@@ -928,8 +1113,12 @@
       document.getElementById("recordList");
 
 
-    list.innerHTML =
-      '<div class="empty">불러오는 중...</div>';
+    if (list) {
+
+      list.innerHTML =
+        '<div class="empty">불러오는 중...</div>';
+
+    }
 
 
     const result =
@@ -945,8 +1134,12 @@
 
       console.error(result.error);
 
-      list.innerHTML =
-        '<div class="empty">접수내역을 불러오지 못했습니다.</div>';
+      if (list) {
+
+        list.innerHTML =
+          '<div class="empty">접수내역을 불러오지 못했습니다.</div>';
+
+      }
 
       return;
     }
@@ -1204,6 +1397,13 @@
       document.getElementById("recordList");
 
 
+    if (!list) {
+
+      return;
+
+    }
+
+
     const search =
       document
         .getElementById("search")
@@ -1275,8 +1475,8 @@
             item.payment_method || "미기록";
 
 
-          const recorder =
-            item.recorder || "미입력";
+          const memo =
+            item.memo || "";
 
 
           return `
@@ -1327,12 +1527,18 @@
                   💌 답례봉투 ${replyEnvelope}개
                 </span>
 
-
-                <span>
-                  👤 ${escapeHtml(recorder)}
-                </span>
-
               </div>
+
+
+              ${
+                memo
+                  ? `
+                    <div class="memo-text">
+                      📝 ${escapeHtml(memo)}
+                    </div>
+                  `
+                  : ""
+              }
 
 
               <button
@@ -1382,3 +1588,4 @@
 
 </body>
 </html>
+```
