@@ -29,28 +29,31 @@
       font-family: inherit;
     }
 
+    button {
+      cursor: pointer;
+    }
+
     .container {
       width: 100%;
-      max-width: 520px;
+      max-width: 620px;
       min-height: 100vh;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 32px 18px 50px;
     }
 
     .header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 26px;
     }
 
     .header .icon {
-      font-size: 42px;
-      margin-bottom: 10px;
+      font-size: 40px;
+      margin-bottom: 8px;
     }
 
     .header h1 {
       margin: 0;
       font-size: 28px;
-      font-weight: 700;
     }
 
     .header p {
@@ -62,22 +65,22 @@
     .card {
       background: white;
       border-radius: 20px;
-      padding: 24px;
+      padding: 22px;
       margin-bottom: 16px;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.05);
     }
 
     .label {
       display: block;
       font-size: 14px;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
     .side-buttons {
       display: flex;
-      gap: 10px;
-      margin-bottom: 22px;
+      gap: 9px;
+      margin-bottom: 20px;
     }
 
     .side-button {
@@ -85,9 +88,8 @@
       border: 1px solid #ddd;
       background: white;
       border-radius: 12px;
-      padding: 13px;
+      padding: 12px;
       font-size: 15px;
-      cursor: pointer;
     }
 
     .side-button.active {
@@ -98,12 +100,12 @@
 
     input {
       width: 100%;
-      padding: 14px;
+      padding: 13px;
       border: 1px solid #ddd;
-      border-radius: 12px;
+      border-radius: 11px;
       font-size: 16px;
       outline: none;
-      margin-bottom: 18px;
+      margin-bottom: 17px;
       background: white;
     }
 
@@ -114,34 +116,31 @@
     .amount-buttons {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 7px;
+      margin-bottom: 11px;
     }
 
     .amount-button {
-      padding: 11px 5px;
+      padding: 10px 4px;
       border: 1px solid #ddd;
       background: white;
-      border-radius: 10px;
-      cursor: pointer;
+      border-radius: 9px;
       font-size: 14px;
     }
 
     .amount-button:active {
-      background: #f0f0f0;
+      background: #f1f1f1;
     }
 
     .submit-button {
       width: 100%;
       border: none;
-      border-radius: 14px;
-      padding: 16px;
+      border-radius: 13px;
+      padding: 15px;
       background: #222;
       color: white;
       font-size: 17px;
       font-weight: 600;
-      cursor: pointer;
-      margin-top: 4px;
     }
 
     .submit-button:disabled {
@@ -151,45 +150,155 @@
 
     .status {
       text-align: center;
-      margin-top: 16px;
+      margin-top: 14px;
       font-size: 14px;
       min-height: 20px;
       word-break: break-word;
     }
 
     .summary {
-      display: flex;
-      gap: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
     }
 
     .summary-box {
-      flex: 1;
       background: white;
-      border-radius: 16px;
-      padding: 18px;
+      border-radius: 15px;
+      padding: 15px 8px;
       text-align: center;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
     }
 
     .summary-box .number {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .summary-box .title {
-      font-size: 12px;
+      font-size: 11px;
       color: #999;
+    }
+
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .list-header h2 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .refresh-button {
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 9px;
+      padding: 7px 11px;
+      font-size: 12px;
+    }
+
+    .search {
+      margin-bottom: 12px;
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 15px;
+    }
+
+    .filter-button {
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 9px;
+      padding: 8px 13px;
+      font-size: 13px;
+    }
+
+    .filter-button.active {
+      background: #333;
+      color: white;
+      border-color: #333;
+    }
+
+    .record {
+      border-top: 1px solid #eee;
+      padding: 14px 0;
+    }
+
+    .record:first-child {
+      border-top: none;
+    }
+
+    .record-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .record-name {
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .record-amount {
+      font-weight: 700;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .record-info {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+      color: #888;
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: #f1f1f1;
+    }
+
+    .empty {
+      text-align: center;
+      color: #999;
+      padding: 30px 10px;
+      font-size: 14px;
     }
 
     .notice {
       text-align: center;
       color: #aaa;
       font-size: 12px;
-      margin-top: 24px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 420px) {
+      .container {
+        padding-left: 13px;
+        padding-right: 13px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .summary-box .number {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
+
 
 <body>
 
@@ -197,16 +306,17 @@
 
   <div class="header">
     <div class="icon">💍</div>
-
     <h1>축의대 관리</h1>
-
     <p>축의금 접수 및 식권 관리</p>
   </div>
 
 
+  <!-- ========================= -->
+  <!-- 접수 -->
+  <!-- ========================= -->
+
   <div class="card">
 
-    <!-- 구분 -->
     <span class="label">구분</span>
 
     <div class="side-buttons">
@@ -230,7 +340,6 @@
     </div>
 
 
-    <!-- 이름 -->
     <span class="label">이름</span>
 
     <input
@@ -241,56 +350,31 @@
     >
 
 
-    <!-- 축의금 -->
     <span class="label">축의금</span>
 
     <div class="amount-buttons">
 
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(50000)"
-      >
+      <button type="button" class="amount-button" onclick="setAmount(50000)">
         5만원
       </button>
 
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(100000)"
-      >
+      <button type="button" class="amount-button" onclick="setAmount(100000)">
         10만원
       </button>
 
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(200000)"
-      >
+      <button type="button" class="amount-button" onclick="setAmount(200000)">
         20만원
       </button>
 
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(300000)"
-      >
+      <button type="button" class="amount-button" onclick="setAmount(300000)">
         30만원
       </button>
 
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(500000)"
-      >
+      <button type="button" class="amount-button" onclick="setAmount(500000)">
         50만원
       </button>
 
-      <button
-        type="button"
-        class="amount-button"
-        onclick="setAmount(1000000)"
-      >
+      <button type="button" class="amount-button" onclick="setAmount(1000000)">
         100만원
       </button>
 
@@ -304,7 +388,6 @@
     >
 
 
-    <!-- 식권 -->
     <span class="label">식권</span>
 
     <input
@@ -316,7 +399,6 @@
     >
 
 
-    <!-- 접수자 -->
     <span class="label">접수자</span>
 
     <input
@@ -327,7 +409,6 @@
     >
 
 
-    <!-- 저장 -->
     <button
       type="button"
       id="submitButton"
@@ -337,42 +418,98 @@
       접수하기
     </button>
 
-
     <div id="status" class="status"></div>
 
   </div>
 
 
+  <!-- ========================= -->
   <!-- 통계 -->
+  <!-- ========================= -->
+
   <div class="summary">
 
     <div class="summary-box">
+      <div class="number" id="count">-</div>
+      <div class="title">총 접수</div>
+    </div>
 
-      <div
-        class="number"
-        id="count"
+    <div class="summary-box">
+      <div class="number" id="total">-</div>
+      <div class="title">총 축의금</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="mealTotal">-</div>
+      <div class="title">총 식권</div>
+    </div>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- 접수내역 -->
+  <!-- ========================= -->
+
+  <div class="card">
+
+    <div class="list-header">
+
+      <h2>📋 접수내역</h2>
+
+      <button
+        type="button"
+        class="refresh-button"
+        onclick="loadRecords()"
       >
-        -
-      </div>
-
-      <div class="title">
-        총 접수
-      </div>
+        🔄 새로고침
+      </button>
 
     </div>
 
 
-    <div class="summary-box">
+    <input
+      id="search"
+      class="search"
+      type="text"
+      placeholder="🔎 이름 검색"
+      oninput="renderRecords()"
+    >
 
-      <div
-        class="number"
-        id="total"
+
+    <div class="filter-buttons">
+
+      <button
+        type="button"
+        class="filter-button active"
+        onclick="selectFilter('전체', this)"
       >
-        -
-      </div>
+        전체
+      </button>
 
-      <div class="title">
-        현재 총액
+      <button
+        type="button"
+        class="filter-button"
+        onclick="selectFilter('신랑측', this)"
+      >
+        🤵 신랑측
+      </button>
+
+      <button
+        type="button"
+        class="filter-button"
+        onclick="selectFilter('신부측', this)"
+      >
+        👰 신부측
+      </button>
+
+    </div>
+
+
+    <div id="recordList">
+
+      <div class="empty">
+        불러오는 중...
       </div>
 
     </div>
@@ -381,7 +518,7 @@
 
 
   <div class="notice">
-    💐 축의금 접수 프로그램
+    💐 축의대 접수 프로그램
   </div>
 
 </div>
@@ -391,7 +528,7 @@
 
   /*
    * =====================================
-   * Supabase 연결
+   * Supabase
    * =====================================
    */
 
@@ -400,7 +537,6 @@
 
   const SUPABASE_KEY =
     "sb_publishable_XURZS8NolmcPdWztVI5uzA_4ULYxiZI";
-
 
   const supabaseClient =
     window.supabase.createClient(
@@ -411,16 +547,20 @@
 
   /*
    * =====================================
-   * 현재 선택된 측
+   * 상태값
    * =====================================
    */
 
   let selectedSide = "신랑측";
 
+  let selectedFilter = "전체";
+
+  let records = [];
+
 
   /*
    * =====================================
-   * 신랑측 / 신부측 선택
+   * 신랑 / 신부 선택
    * =====================================
    */
 
@@ -440,7 +580,7 @@
 
   /*
    * =====================================
-   * 금액 버튼
+   * 금액
    * =====================================
    */
 
@@ -460,7 +600,10 @@
   async function submitGift() {
 
     const name =
-      document.getElementById("name").value.trim();
+      document
+        .getElementById("name")
+        .value
+        .trim();
 
     const amount =
       Number(
@@ -484,10 +627,6 @@
     const button =
       document.getElementById("submitButton");
 
-
-    /*
-     * 입력 확인
-     */
 
     if (!name) {
 
@@ -513,10 +652,6 @@
     }
 
 
-    /*
-     * 저장 중
-     */
-
     button.disabled = true;
 
     button.textContent =
@@ -524,10 +659,6 @@
 
     status.textContent = "";
 
-
-    /*
-     * Supabase 저장
-     */
 
     const result =
       await supabaseClient
@@ -541,40 +672,28 @@
         });
 
 
-    const error = result.error;
-
-
-    /*
-     * 저장 실패
-     */
-
-    if (error) {
+    if (result.error) {
 
       console.error(
         "Supabase 오류:",
-        error
+        result.error
       );
 
       status.textContent =
         "❌ 저장 실패: " +
-        error.message;
+        result.error.message;
 
       alert(
         "저장에 실패했습니다.\n\n" +
         "오류 내용:\n" +
-        error.message
+        result.error.message
       );
 
 
     } else {
 
-      /*
-       * 저장 성공
-       */
-
       status.textContent =
         "✅ 접수가 완료되었습니다!";
-
 
       alert(
         name +
@@ -586,10 +705,6 @@
       );
 
 
-      /*
-       * 입력창 초기화
-       */
-
       document.getElementById("name").value =
         "";
 
@@ -600,17 +715,9 @@
         "0";
 
 
-      /*
-       * 총액 다시 불러오기
-       */
-
-      await loadSummary();
+      await loadRecords();
     }
 
-
-    /*
-     * 버튼 원상복구
-     */
 
     button.disabled = false;
 
@@ -621,51 +728,82 @@
 
   /*
    * =====================================
-   * 총 접수 / 총액
+   * DB에서 접수내역 불러오기
    * =====================================
    */
 
-  async function loadSummary() {
+  async function loadRecords() {
+
+    const list =
+      document.getElementById("recordList");
+
+    list.innerHTML =
+      '<div class="empty">불러오는 중...</div>';
+
 
     const result =
       await supabaseClient
         .from("gifts")
-        .select("amount");
+        .select("*")
+        .order("created_at", {
+          ascending: false
+        });
 
 
-    const data = result.data;
+    if (result.error) {
 
-    const error = result.error;
+      console.error(result.error);
 
-
-    if (error) {
-
-      console.error(
-        "통계 불러오기 오류:",
-        error
-      );
-
-      document.getElementById("count").textContent =
-        "-";
-
-      document.getElementById("total").textContent =
-        "-";
+      list.innerHTML =
+        '<div class="empty">접수내역을 불러오지 못했습니다.</div>';
 
       return;
     }
 
 
+    records =
+      result.data || [];
+
+
+    updateSummary();
+
+    renderRecords();
+  }
+
+
+  /*
+   * =====================================
+   * 통계
+   * =====================================
+   */
+
+  function updateSummary() {
+
     const count =
-      data.length;
+      records.length;
 
 
     const total =
-      data.reduce(
+      records.reduce(
         function(sum, item) {
 
           return (
             sum +
             Number(item.amount || 0)
+          );
+
+        },
+        0
+      );
+
+
+    const mealTotal =
+      records.reduce(
+        function(sum, item) {
+
+          return (
+            sum +
+            Number(item.meal_count || 0)
           );
 
         },
@@ -681,16 +819,170 @@
     document.getElementById("total").textContent =
       total.toLocaleString() +
       "원";
+
+
+    document.getElementById("mealTotal").textContent =
+      mealTotal.toLocaleString() +
+      "장";
   }
 
 
   /*
    * =====================================
-   * 페이지 처음 열릴 때
+   * 필터 선택
    * =====================================
    */
 
-  loadSummary();
+  function selectFilter(filter, button) {
+
+    selectedFilter = filter;
+
+    document
+      .querySelectorAll(".filter-button")
+      .forEach(function(btn) {
+        btn.classList.remove("active");
+      });
+
+    button.classList.add("active");
+
+    renderRecords();
+  }
+
+
+  /*
+   * =====================================
+   * 접수내역 화면
+   * =====================================
+   */
+
+  function renderRecords() {
+
+    const list =
+      document.getElementById("recordList");
+
+    const search =
+      document
+        .getElementById("search")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    let filtered =
+      records.filter(function(item) {
+
+        const matchesSide =
+          selectedFilter === "전체" ||
+          item.side === selectedFilter;
+
+
+        const matchesSearch =
+          !search ||
+          String(item.name || "")
+            .toLowerCase()
+            .includes(search);
+
+
+        return (
+          matchesSide &&
+          matchesSearch
+        );
+      });
+
+
+    if (filtered.length === 0) {
+
+      list.innerHTML =
+        '<div class="empty">접수내역이 없습니다.</div>';
+
+      return;
+    }
+
+
+    list.innerHTML =
+      filtered
+        .map(function(item) {
+
+          const side =
+            item.side || "-";
+
+          const name =
+            item.name || "-";
+
+          const amount =
+            Number(item.amount || 0)
+              .toLocaleString();
+
+          const meal =
+            Number(item.meal_count || 0);
+
+          const recorder =
+            item.recorder || "미입력";
+
+
+          return `
+            <div class="record">
+
+              <div class="record-main">
+
+                <div class="record-name">
+                  ${escapeHtml(name)}
+                </div>
+
+                <div class="record-amount">
+                  ${amount}원
+                </div>
+
+              </div>
+
+              <div class="record-info">
+
+                <span class="badge">
+                  ${escapeHtml(side)}
+                </span>
+
+                <span>
+                  🎫 식권 ${meal}장
+                </span>
+
+                <span>
+                  👤 ${escapeHtml(recorder)}
+                </span>
+
+              </div>
+
+            </div>
+          `;
+
+        })
+        .join("");
+  }
+
+
+  /*
+   * =====================================
+   * HTML 문자 안전 처리
+   * =====================================
+   */
+
+  function escapeHtml(value) {
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+
+  /*
+   * =====================================
+   * 시작
+   * =====================================
+   */
+
+  loadRecords();
 
 </script>
 
