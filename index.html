@@ -976,6 +976,8 @@ async function login() {
 
   let nextEnvelopeNumber = 1;
 
+  let editingRecordId = null;
+
 
   /* =====================================
      화면 전환
@@ -1176,6 +1178,7 @@ async function login() {
 
   async function submitGift() {
 
+
     const name =
       document
         .getElementById("name")
@@ -1250,33 +1253,160 @@ async function login() {
 
     button.disabled = true;
 
-    button.textContent = "저장 중...";
+    button.textContent =
+      editingRecordId
+        ? "수정 저장 중..."
+        : "저장 중...";
 
     status.textContent = "";
 
 
-    /*
-     * 현재 표시된 봉투번호를 그대로 사용
-     */
-    const envelopeNumber =
-      nextEnvelopeNumber;
-
-
     try {
+
+      /* =====================================
+         수정 모드
+      ===================================== */
+
+      if (editingRecordId) {
+
+        const result =
+          await supabaseClient
+            .from("gifts")
+            .update({
+
+              side: selectedSide,
+
+              name: name,
+
+              amount: amount,
+
+              adult_meal: adultMeal,
+
+              child_meal: childMeal,
+
+              reply_envelope: replyEnvelope,
+
+              payment_method: selectedPayment,
+
+              memo: memo || null
+
+            })
+            .eq("id", editingRecordId);
+
+
+        if (result.error) {
+
+          console.error(
+            "수정 오류:",
+            result.error
+          );
+
+
+          status.textContent =
+            "❌ 수정 실패: " +
+            result.error.message;
+
+
+          alert(
+            "수정에 실패했습니다.\n\n" +
+            "오류 내용:\n" +
+            result.error.message
+          );
+
+
+          return;
+
+        }
+
+
+        alert(
+          name +
+          "님의 접수내역이 수정되었습니다!"
+        );
+
+
+        editingRecordId = null;
+
+
+        document.getElementById("name").value = "";
+
+        document.getElementById("amount").value = "";
+
+        document.getElementById("adultMeal").value = "0";
+
+        document.getElementById("childMeal").value = "0";
+
+        document.getElementById("replyEnvelope").value = "0";
+
+        document.getElementById("memo").value = "";
+
+
+        selectedPayment = "현금";
+
+
+        document
+          .querySelectorAll("#cashButton, #transferButton")
+          .forEach(function(btn) {
+
+            btn.classList.remove("active");
+
+          });
+
+
+        document
+          .getElementById("cashButton")
+          .classList.add("active");
+
+
+        button.textContent =
+          "접수하기";
+
+
+        status.textContent =
+          "✅ 수정이 완료되었습니다!";
+
+
+        await loadRecords();
+
+        updateNextEnvelopeNumber();
+
+
+        return;
+
+      }
+
+
+      /* =====================================
+         신규 접수
+      ===================================== */
+
+      const envelopeNumber =
+        nextEnvelopeNumber;
+
 
       const result =
         await supabaseClient
           .from("gifts")
           .insert({
+
             side: selectedSide,
+
             envelope_number: envelopeNumber,
+
             name: name,
+
             amount: amount,
+
             adult_meal: adultMeal,
+
             child_meal: childMeal,
+
             reply_envelope: replyEnvelope,
+
             payment_method: selectedPayment,
+
             memo: memo || null
+
           });
 
 
@@ -1362,7 +1492,6 @@ async function login() {
 
       await loadRecords();
 
-
       updateNextEnvelopeNumber();
 
 
@@ -1387,7 +1516,12 @@ async function login() {
 
       button.disabled = false;
 
-      button.textContent = "접수하기";
+      if (!editingRecordId) {
+
+        button.textContent =
+          "접수하기";
+
+      }
 
     }
 
@@ -1590,7 +1724,156 @@ async function login() {
 
   }
 
+  /* =====================================
+     접수내역 수정
+  ===================================== */
 
+  function editRecord(id) {
+
+    const item =
+      records.find(function(record) {
+
+        return String(record.id) === String(id);
+
+      });
+
+
+    if (!item) {
+
+      alert("수정할 접수내역을 찾을 수 없습니다.");
+
+      return;
+
+    }
+
+
+    editingRecordId = item.id;
+
+
+    /* 구분 */
+
+    selectedSide =
+      item.side || "신랑측";
+
+
+    document
+      .querySelectorAll(".side-buttons .side-button")
+      .forEach(function(btn) {
+
+        if (
+          btn.id !== "cashButton" &&
+          btn.id !== "transferButton"
+        ) {
+
+          btn.classList.remove("active");
+
+        }
+
+      });
+
+
+    const sideButtons =
+      document.querySelectorAll(
+        ".side-buttons .side-button"
+      );
+
+
+    sideButtons.forEach(function(btn) {
+
+      if (
+        btn.textContent.includes(selectedSide)
+      ) {
+
+        btn.classList.add("active");
+
+      }
+
+    });
+
+
+    /* 입력값 */
+
+    document.getElementById("name").value =
+      item.name || "";
+
+
+    document.getElementById("amount").value =
+      item.amount || "";
+
+
+    document.getElementById("adultMeal").value =
+      item.adult_meal || 0;
+
+
+    document.getElementById("childMeal").value =
+      item.child_meal || 0;
+
+
+    document.getElementById("replyEnvelope").value =
+      item.reply_envelope || 0;
+
+
+    document.getElementById("memo").value =
+      item.memo || "";
+
+
+    /* 접수방법 */
+
+    selectedPayment =
+      item.payment_method || "현금";
+
+
+    document
+      .querySelectorAll("#cashButton, #transferButton")
+      .forEach(function(btn) {
+
+        btn.classList.remove("active");
+
+      });
+
+
+    if (selectedPayment === "계좌이체") {
+
+      document
+        .getElementById("transferButton")
+        .classList.add("active");
+
+    } else {
+
+      document
+        .getElementById("cashButton")
+        .classList.add("active");
+
+    }
+
+
+    /* 수정 모드 */
+
+    document.getElementById("submitButton").textContent =
+      "수정 저장";
+
+
+    document.getElementById("status").textContent =
+      "✏️ 수정할 내용을 확인해주세요.";
+
+
+    /* 접수하기 화면으로 이동 */
+
+    showPage("register");
+
+
+    /* 이름 입력칸으로 이동 */
+
+    setTimeout(function() {
+
+      document
+        .getElementById("name")
+        .focus();
+
+    }, 300);
+
+  }
+  
   /* =====================================
      접수내역 삭제
   ===================================== */
@@ -1874,6 +2157,13 @@ async function login() {
                   : ""
               }
 
+<button
+  type="button"
+  class="edit-button"
+  onclick="editRecord('${item.id}')"
+>
+  ✏️ 수정
+</button>
 
               <button
                 type="button"
