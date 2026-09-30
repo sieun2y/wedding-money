@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>축의대 관리</title>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -27,7 +29,7 @@
 
     .header {
       text-align: center;
-      margin-bottom: 35px;
+      margin-bottom: 30px;
     }
 
     .header .icon {
@@ -38,7 +40,6 @@
     .header h1 {
       margin: 0;
       font-size: 28px;
-      font-weight: 700;
     }
 
     .header p {
@@ -94,10 +95,6 @@
       margin-bottom: 18px;
     }
 
-    input:focus {
-      border-color: #888;
-    }
-
     .amount-buttons {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -113,10 +110,6 @@
       cursor: pointer;
     }
 
-    .amount-button:hover {
-      background: #f5f5f5;
-    }
-
     .submit-button {
       width: 100%;
       border: none;
@@ -127,11 +120,10 @@
       font-size: 17px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 5px;
     }
 
-    .submit-button:hover {
-      background: #444;
+    .submit-button:disabled {
+      background: #aaa;
     }
 
     .summary {
@@ -149,7 +141,7 @@
     }
 
     .summary-box .number {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
       margin-bottom: 5px;
     }
@@ -159,153 +151,264 @@
       color: #999;
     }
 
-    .notice {
+    .status {
       text-align: center;
-      color: #999;
-      font-size: 12px;
-      margin-top: 25px;
+      margin: 16px 0;
+      font-size: 14px;
+      min-height: 20px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="header">
-      <div class="icon">💍</div>
-      <h1>축의대 관리</h1>
-      <p>축의금 접수 및 식권 관리</p>
-    </div>
+  <div class="header">
+    <div class="icon">💍</div>
+    <h1>축의대 관리</h1>
+    <p>축의금 접수 및 식권 관리</p>
+  </div>
 
-    <div class="card">
+  <div class="card">
 
-      <span class="label">구분</span>
+    <span class="label">구분</span>
 
-      <div class="side-buttons">
-        <button class="side-button active" onclick="selectSide('신랑측', this)">
-          🤵 신랑측
-        </button>
-
-        <button class="side-button" onclick="selectSide('신부측', this)">
-          👰 신부측
-        </button>
-      </div>
-
-      <span class="label">이름</span>
-      <input
-        id="name"
-        type="text"
-        placeholder="이름을 입력하세요"
-      >
-
-      <span class="label">축의금</span>
-
-      <div class="amount-buttons">
-        <button class="amount-button" onclick="setAmount(50000)">5만원</button>
-        <button class="amount-button" onclick="setAmount(100000)">10만원</button>
-        <button class="amount-button" onclick="setAmount(200000)">20만원</button>
-        <button class="amount-button" onclick="setAmount(300000)">30만원</button>
-        <button class="amount-button" onclick="setAmount(500000)">50만원</button>
-        <button class="amount-button" onclick="setAmount(1000000)">100만원</button>
-      </div>
-
-      <input
-        id="amount"
-        type="number"
-        placeholder="금액을 직접 입력하세요"
-      >
-
-      <span class="label">식권</span>
-
-      <input
-        id="meal"
-        type="number"
-        value="0"
-        min="0"
-        placeholder="식권 수량"
-      >
-
-      <span class="label">접수자</span>
-
-      <input
-        id="recorder"
-        type="text"
-        placeholder="접수자 이름"
-      >
-
-      <button class="submit-button" onclick="submitGift()">
-        접수하기
+    <div class="side-buttons">
+      <button class="side-button active" onclick="selectSide('신랑측', this)">
+        🤵 신랑측
       </button>
 
+      <button class="side-button" onclick="selectSide('신부측', this)">
+        👰 신부측
+      </button>
     </div>
 
-    <div class="summary">
+    <span class="label">이름</span>
+    <input id="name" type="text" placeholder="이름을 입력하세요">
 
-      <div class="summary-box">
-        <div class="number" id="count">0</div>
-        <div class="title">오늘 접수</div>
-      </div>
+    <span class="label">축의금</span>
 
-      <div class="summary-box">
-        <div class="number" id="total">0원</div>
-        <div class="title">현재 총액</div>
-      </div>
-
+    <div class="amount-buttons">
+      <button class="amount-button" onclick="setAmount(50000)">5만원</button>
+      <button class="amount-button" onclick="setAmount(100000)">10만원</button>
+      <button class="amount-button" onclick="setAmount(200000)">20만원</button>
+      <button class="amount-button" onclick="setAmount(300000)">30만원</button>
+      <button class="amount-button" onclick="setAmount(500000)">50만원</button>
+      <button class="amount-button" onclick="setAmount(1000000)">100만원</button>
     </div>
 
-    <div class="notice">
-      💐 축의금 접수 프로그램
+    <input
+      id="amount"
+      type="number"
+      placeholder="금액을 직접 입력하세요"
+    >
+
+    <span class="label">식권</span>
+    <input
+      id="meal"
+      type="number"
+      value="0"
+      min="0"
+      placeholder="식권 수량"
+    >
+
+    <span class="label">접수자</span>
+    <input
+      id="recorder"
+      type="text"
+      placeholder="접수자 이름"
+    >
+
+    <button id="submitButton" class="submit-button" onclick="submitGift()">
+      접수하기
+    </button>
+
+    <div id="status" class="status"></div>
+
+  </div>
+
+  <div class="summary">
+
+    <div class="summary-box">
+      <div class="number" id="count">-</div>
+      <div class="title">총 접수</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="total">-</div>
+      <div class="title">현재 총액</div>
     </div>
 
   </div>
 
-  <script>
+</div>
 
-    let selectedSide = "신랑측";
+<script>
 
-    function selectSide(side, button) {
-      selectedSide = side;
+  // ==============================
+  // 🔐 Supabase 연결 정보
+  // ==============================
 
-      document.querySelectorAll(".side-button")
-        .forEach(btn => btn.classList.remove("active"));
+  const SUPABASE_URL = "https://snsschroqinfhqdopxyv.supabase.co/rest/v1/";
+  const SUPABASE_KEY = "sb_publishable_XURZS8NolmcPdWztVI5uzA_4ULYxiZI";
 
-      button.classList.add("active");
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+  // ==============================
+  // 신랑측 / 신부측
+  // ==============================
+
+  let selectedSide = "신랑측";
+
+  function selectSide(side, button) {
+
+    selectedSide = side;
+
+    document.querySelectorAll(".side-button")
+      .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+  }
+
+
+  // ==============================
+  // 금액 버튼
+  // ==============================
+
+  function setAmount(amount) {
+    document.getElementById("amount").value = amount;
+  }
+
+
+  // ==============================
+  // 축의금 저장
+  // ==============================
+
+  async function submitGift() {
+
+    const name =
+      document.getElementById("name").value.trim();
+
+    const amount =
+      Number(document.getElementById("amount").value);
+
+    const meal =
+      Number(document.getElementById("meal").value);
+
+    const recorder =
+      document.getElementById("recorder").value.trim();
+
+    const status =
+      document.getElementById("status");
+
+    const button =
+      document.getElementById("submitButton");
+
+
+    if (!name) {
+      alert("이름을 입력해주세요.");
+      return;
     }
 
-    function setAmount(amount) {
-      document.getElementById("amount").value = amount;
+    if (!amount || amount <= 0) {
+      alert("축의금을 입력해주세요.");
+      return;
     }
 
-    function submitGift() {
 
-      const name = document.getElementById("name").value.trim();
-      const amount = Number(document.getElementById("amount").value);
-      const meal = Number(document.getElementById("meal").value);
-      const recorder = document.getElementById("recorder").value.trim();
+    button.disabled = true;
+    button.textContent = "저장 중...";
+    status.textContent = "";
 
-      if (!name) {
-        alert("이름을 입력해주세요.");
-        return;
-      }
 
-      if (!amount || amount <= 0) {
-        alert("축의금을 입력해주세요.");
-        return;
-      }
+    const { error } = await supabaseClient
+      .from("gifts")
+      .insert({
+        side: selectedSide,
+        name: name,
+        amount: amount,
+        meal_count: meal || 0,
+        recorder: recorder || null
+      });
+
+
+    if (error) {
+
+      console.error(error);
+
+      status.textContent =
+        "❌ 저장에 실패했어요.";
 
       alert(
-        `${name}님 접수가 완료되었습니다!\\n` +
-        `${amount.toLocaleString()}원 / 식권 ${meal}장`
+        "저장에 실패했습니다.\n\n" +
+        "Supabase 연결 정보를 확인해주세요."
+      );
+
+    } else {
+
+      status.textContent =
+        "✅ 접수가 완료되었습니다!";
+
+      alert(
+        `${name}님 접수가 완료되었습니다!\n` +
+        `${amount.toLocaleString()}원 / 식권 ${meal || 0}장`
       );
 
       document.getElementById("name").value = "";
       document.getElementById("amount").value = "";
       document.getElementById("meal").value = "0";
 
+      await loadSummary();
     }
 
-  </script>
+
+    button.disabled = false;
+    button.textContent = "접수하기";
+  }
+
+
+  // ==============================
+  // 총 접수 / 총액
+  // ==============================
+
+  async function loadSummary() {
+
+    const { data, error } = await supabaseClient
+      .from("gifts")
+      .select("amount");
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    const count = data.length;
+
+    const total = data.reduce(
+      (sum, item) => sum + Number(item.amount || 0),
+      0
+    );
+
+    document.getElementById("count").textContent =
+      count.toLocaleString() + "명";
+
+    document.getElementById("total").textContent =
+      total.toLocaleString() + "원";
+  }
+
+
+  // ==============================
+  // 처음 실행
+  // ==============================
+
+  loadSummary();
+
+</script>
 
 </body>
 </html>
