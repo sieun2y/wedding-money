@@ -7,7 +7,21 @@
   <title>축의대 관리</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+.delete-button {
+  border: 1px solid #eee;
+  background: #fff;
+  color: #999;
+  border-radius: 8px;
+  padding: 6px 9px;
+  font-size: 12px;
+  margin-top: 10px;
+}
 
+.delete-button:hover {
+  background: #f8f8f8;
+  color: #d33;
+  border-color: #ddd;
+}
   <style>
     * {
       box-sizing: border-box;
@@ -847,7 +861,73 @@
 
     renderRecords();
   }
+  /*
+   * =====================================
+   * 접수내역 삭제
+   * =====================================
+   */
 
+  async function deleteRecord(id) {
+
+    const item =
+      records.find(function(record) {
+        return String(record.id) === String(id);
+      });
+
+    if (!item) {
+      alert("삭제할 접수내역을 찾을 수 없습니다.");
+      return;
+    }
+
+
+    const confirmed =
+      confirm(
+        "정말 삭제하시겠습니까?\n\n" +
+        item.name +
+        " / " +
+        Number(item.amount || 0).toLocaleString() +
+        "원 / 식권 " +
+        Number(item.meal_count || 0) +
+        "장"
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    const result =
+      await supabaseClient
+        .from("gifts")
+        .delete()
+        .eq("id", id);
+
+
+    if (result.error) {
+
+      console.error(
+        "삭제 오류:",
+        result.error
+      );
+
+      alert(
+        "삭제에 실패했습니다.\n\n" +
+        result.error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      item.name +
+      "님의 접수내역이 삭제되었습니다."
+    );
+
+
+    await loadRecords();
+  }
 
   /*
    * =====================================
@@ -935,7 +1015,7 @@
 
               </div>
 
-              <div class="record-info">
+                            <div class="record-info">
 
                 <span class="badge">
                   ${escapeHtml(side)}
@@ -950,6 +1030,14 @@
                 </span>
 
               </div>
+
+              <button
+                type="button"
+                class="delete-button"
+                onclick="deleteRecord('${item.id}')"
+              >
+                🗑 삭제
+              </button>
 
             </div>
           `;
