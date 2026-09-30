@@ -14,6 +14,67 @@
       box-sizing: border-box;
     }
 
+    /* 로그인 화면 */
+
+#loginScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f5f2;
+  padding: 20px;
+}
+    
+.login-box {
+  width: 100%;
+  max-width: 380px;
+  background: white;
+  border-radius: 20px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+}
+
+.login-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.login-box h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.login-box p {
+  margin: 8px 0 24px;
+  color: #888;
+  font-size: 14px;
+}
+
+.login-box input {
+  margin-bottom: 12px;
+}
+
+.login-box button {
+  width: 100%;
+  border: none;
+  border-radius: 13px;
+  padding: 15px;
+  background: #222;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#loginStatus {
+  min-height: 20px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #d33;
+}
+
     body {
       margin: 0;
       font-family:
@@ -409,8 +470,34 @@
 
 <body>
 
-<div class="container">
+<div id="app" class="container">
 
+  <div id="loginScreen">
+  <div class="login-box">
+    <div class="login-icon">🔐</div>
+
+    <h1>축의대 관리</h1>
+
+    <p>비밀번호를 입력해주세요.</p>
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="비밀번호"
+      autocomplete="current-password"
+    >
+
+    <button
+      type="button"
+      onclick="login()"
+    >
+      입장하기
+    </button>
+
+    <div id="loginStatus"></div>
+  </div>
+</div>
+  
   <div class="header">
     <div class="icon">💍</div>
     <h1>축의대 관리</h1>
@@ -808,6 +895,72 @@ onclick="showPage('summary')"
       SUPABASE_KEY
     );
 
+  /* =====================================
+   로그인
+===================================== */
+
+async function login() {
+
+  const password =
+    document
+      .getElementById("loginPassword")
+      .value
+      .trim();
+
+  const status =
+    document.getElementById("loginStatus");
+
+  const app =
+    document.getElementById("app");
+
+  const loginScreen =
+    document.getElementById("loginScreen");
+
+
+  if (!password) {
+
+    status.textContent =
+      "비밀번호를 입력해주세요.";
+
+    return;
+
+  }
+
+
+  status.textContent =
+    "확인 중...";
+
+
+  const result =
+    await supabaseClient.auth.signInWithPassword({
+
+      email: "sieun@wedding.com",
+
+      password: password
+
+    });
+
+
+  if (result.error) {
+
+    console.error(
+      "로그인 오류:",
+      result.error
+    );
+
+    status.textContent =
+      "❌ 비밀번호가 올바르지 않습니다.";
+
+    return;
+
+  }
+
+
+  loginScreen.style.display = "none";
+
+  app.style.display = "block";
+
+}
 
   /* =====================================
      상태값
