@@ -337,19 +337,34 @@
       });
 
 
-    if (error) {
+   if (error) {
 
-      console.error(error);
+  console.error("Supabase 오류:", error);
 
-      status.textContent =
-        "❌ 저장에 실패했어요.";
+  status.textContent =
+    "❌ " + error.message;
 
-      alert(
-        "저장에 실패했습니다.\n\n" +
-        "Supabase 연결 정보를 확인해주세요."
-      );
+  alert(
+    "저장 실패\n\n" +
+    "오류: " + error.message
+  );
 
-    } else {
+} else {
+
+  status.textContent =
+    "✅ 접수가 완료되었습니다!";
+
+  alert(
+    `${name}님 접수가 완료되었습니다!\n` +
+    `${amount.toLocaleString()}원 / 식권 ${meal || 0}장`
+  );
+
+  document.getElementById("name").value = "";
+  document.getElementById("amount").value = "";
+  document.getElementById("meal").value = "0";
+
+  await loadSummary();
+} else {
 
       status.textContent =
         "✅ 접수가 완료되었습니다!";
