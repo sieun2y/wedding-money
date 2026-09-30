@@ -7,21 +7,7 @@
   <title>축의대 관리</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-.delete-button {
-  border: 1px solid #eee;
-  background: #fff;
-  color: #999;
-  border-radius: 8px;
-  padding: 6px 9px;
-  font-size: 12px;
-  margin-top: 10px;
-}
 
-.delete-button:hover {
-  background: #f8f8f8;
-  color: #d33;
-  border-color: #ddd;
-}
   <style>
     * {
       box-sizing: border-box;
@@ -172,7 +158,7 @@
 
     .summary {
       display: grid;
-     grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
       margin-bottom: 16px;
     }
@@ -282,6 +268,22 @@
       background: #f1f1f1;
     }
 
+    .delete-button {
+      border: 1px solid #eee;
+      background: #fff;
+      color: #999;
+      border-radius: 8px;
+      padding: 6px 9px;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .delete-button:hover {
+      background: #f8f8f8;
+      color: #d33;
+      border-color: #ddd;
+    }
+
     .empty {
       text-align: center;
       color: #999;
@@ -313,7 +315,6 @@
   </style>
 </head>
 
-
 <body>
 
 <div class="container">
@@ -325,9 +326,7 @@
   </div>
 
 
-  <!-- ========================= -->
   <!-- 접수 -->
-  <!-- ========================= -->
 
   <div class="card">
 
@@ -368,27 +367,51 @@
 
     <div class="amount-buttons">
 
-      <button type="button" class="amount-button" onclick="setAmount(50000)">
+      <button
+        type="button"
+        class="amount-button"
+        onclick="setAmount(50000)"
+      >
         5만원
       </button>
 
-      <button type="button" class="amount-button" onclick="setAmount(100000)">
+      <button
+        type="button"
+        class="amount-button"
+        onclick="setAmount(100000)"
+      >
         10만원
       </button>
 
-      <button type="button" class="amount-button" onclick="setAmount(200000)">
+      <button
+        type="button"
+        class="amount-button"
+        onclick="setAmount(200000)"
+      >
         20만원
       </button>
 
-      <button type="button" class="amount-button" onclick="setAmount(300000)">
+      <button
+        type="button"
+        class="amount-button"
+        onclick="setAmount(300000)"
+      >
         30만원
       </button>
 
-      <button type="button" class="amount-button" onclick="setAmount(500000)">
+      <button
+        type="button"
+        class="amount-button"
+        onclick="setAmount(500000)"
+      >
         50만원
       </button>
 
-      <button type="button" class="amount-button" onclick="setAmount(1000000)">
+      <button
+        type="button"
+        class="amount-button"
+        onclick="setAmount(1000000)"
+      >
         100만원
       </button>
 
@@ -402,70 +425,62 @@
     >
 
 
-   <span class="label">
-  대인 식권
-</span>
+    <span class="label">대인 식권</span>
 
-<input
-  id="adultMeal"
-  type="number"
-  value="0"
-  min="0"
-  placeholder="대인 식권 수량"
-/>
+    <input
+      id="adultMeal"
+      type="number"
+      value="0"
+      min="0"
+      placeholder="대인 식권 수량"
+    >
 
 
-<span class="label">
-  소인 식권
-</span>
+    <span class="label">소인 식권</span>
 
-<input
-  id="childMeal"
-  type="number"
-  value="0"
-  min="0"
-  placeholder="소인 식권 수량"
-/>
+    <input
+      id="childMeal"
+      type="number"
+      value="0"
+      min="0"
+      placeholder="소인 식권 수량"
+    >
 
 
-<span class="label">
-  답례봉투
-</span>
+    <span class="label">답례봉투</span>
 
-<input
-  id="replyEnvelope"
-  type="number"
-  value="0"
-  min="0"
-  placeholder="답례봉투 수량"
-/>
+    <input
+      id="replyEnvelope"
+      type="number"
+      value="0"
+      min="0"
+      placeholder="답례봉투 수량"
+    >
 
 
-<span class="label">
-  접수방법
-</span>
+    <span class="label">접수방법</span>
 
-<div class="side-buttons">
+    <div class="side-buttons">
 
-  <button
-    type="button"
-    id="cashButton"
-    class="side-button active"
-    onclick="selectPayment('현금', this)"
-  >
-    💵 현금
-  </button>
+      <button
+        type="button"
+        id="cashButton"
+        class="side-button active"
+        onclick="selectPayment('현금', this)"
+      >
+        💵 현금
+      </button>
 
-  <button
-    type="button"
-    id="transferButton"
-    class="side-button"
-    onclick="selectPayment('계좌이체', this)"
-  >
-    🏦 계좌이체
-  </button>
+      <button
+        type="button"
+        id="transferButton"
+        class="side-button"
+        onclick="selectPayment('계좌이체', this)"
+      >
+        🏦 계좌이체
+      </button>
 
-</div>
+    </div>
 
 
     <span class="label">접수자</span>
@@ -492,48 +507,44 @@
   </div>
 
 
-  <!-- ========================= -->
   <!-- 통계 -->
-  <!-- ========================= -->
 
- <div class="summary">
+  <div class="summary">
 
-  <div class="summary-box">
-    <div class="number" id="count">-</div>
-    <div class="title">전체 접수</div>
+    <div class="summary-box">
+      <div class="number" id="count">-</div>
+      <div class="title">전체 접수</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="total">-</div>
+      <div class="title">총 금액</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="adultMealTotal">-</div>
+      <div class="title">대인 식권</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="childMealTotal">-</div>
+      <div class="title">소인 식권</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="replyEnvelopeTotal">-</div>
+      <div class="title">답례봉투</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="transferTotal">-</div>
+      <div class="title">계좌이체</div>
+    </div>
+
   </div>
 
-  <div class="summary-box">
-    <div class="number" id="total">-</div>
-    <div class="title">총 금액</div>
-  </div>
 
-  <div class="summary-box">
-    <div class="number" id="adultMealTotal">-</div>
-    <div class="title">대인 식권</div>
-  </div>
-
-  <div class="summary-box">
-    <div class="number" id="childMealTotal">-</div>
-    <div class="title">소인 식권</div>
-  </div>
-
-  <div class="summary-box">
-    <div class="number" id="replyEnvelopeTotal">-</div>
-    <div class="title">답례봉투</div>
-  </div>
-
-  <div class="summary-box">
-    <div class="number" id="transferTotal">-</div>
-    <div class="title">계좌이체</div>
-  </div>
-
-</div>
-
-
-  <!-- ========================= -->
   <!-- 접수내역 -->
-  <!-- ========================= -->
 
   <div class="card">
 
@@ -657,23 +668,36 @@
     document
       .querySelectorAll(".side-button")
       .forEach(function(btn) {
+
         btn.classList.remove("active");
+
       });
 
     button.classList.add("active");
   }
-function selectPayment(payment, button) {
 
-  selectedPayment = payment;
 
-  document
-    .querySelectorAll("#cashButton, #transferButton")
-    .forEach(function(btn) {
-      btn.classList.remove("active");
-    });
+  /*
+   * =====================================
+   * 접수방법 선택
+   * =====================================
+   */
 
-  button.classList.add("active");
-}
+  function selectPayment(payment, button) {
+
+    selectedPayment = payment;
+
+    document
+      .querySelectorAll("#cashButton, #transferButton")
+      .forEach(function(btn) {
+
+        btn.classList.remove("active");
+
+      });
+
+    button.classList.add("active");
+  }
+
 
   /*
    * =====================================
@@ -683,8 +707,8 @@ function selectPayment(payment, button) {
 
   function setAmount(amount) {
 
-    document.getElementById("amount").value =
-      amount;
+    document.getElementById("amount").value = amount;
+
   }
 
 
@@ -702,33 +726,41 @@ function selectPayment(payment, button) {
         .value
         .trim();
 
+
     const amount =
       Number(
         document.getElementById("amount").value
       );
 
-   const adultMeal =
-  Number(
-    document.getElementById("adultMeal").value
-  ) || 0;
 
-const childMeal =
-  Number(
-    document.getElementById("childMeal").value
-  ) || 0;
+    const adultMeal =
+      Number(
+        document.getElementById("adultMeal").value
+      ) || 0;
 
-const replyEnvelope =
-  Number(
-    document.getElementById("replyEnvelope").value
-  ) || 0;
+
+    const childMeal =
+      Number(
+        document.getElementById("childMeal").value
+      ) || 0;
+
+
+    const replyEnvelope =
+      Number(
+        document.getElementById("replyEnvelope").value
+      ) || 0;
+
+
     const recorder =
       document
         .getElementById("recorder")
         .value
         .trim();
 
+
     const status =
       document.getElementById("status");
+
 
     const button =
       document.getElementById("submitButton");
@@ -760,25 +792,24 @@ const replyEnvelope =
 
     button.disabled = true;
 
-    button.textContent =
-      "저장 중...";
+    button.textContent = "저장 중...";
 
     status.textContent = "";
 
 
     const result =
-  await supabaseClient
-    .from("gifts")
-    .insert({
-      side: selectedSide,
-      name: name,
-      amount: amount,
-      adult_meal: adultMeal,
-      child_meal: childMeal,
-      reply_envelope: replyEnvelope,
-      payment_method: selectedPayment,
-      recorder: recorder || null
-    });
+      await supabaseClient
+        .from("gifts")
+        .insert({
+          side: selectedSide,
+          name: name,
+          amount: amount,
+          adult_meal: adultMeal,
+          child_meal: childMeal,
+          reply_envelope: replyEnvelope,
+          payment_method: selectedPayment,
+          recorder: recorder || null
+        });
 
 
     if (result.error) {
@@ -798,55 +829,67 @@ const replyEnvelope =
         result.error.message
       );
 
-
     } else {
 
       status.textContent =
         "✅ 접수가 완료되었습니다!";
 
+
       alert(
         name +
         "님 접수가 완료되었습니다!\n\n" +
         amount.toLocaleString() +
-        "원 / 식권 " +
-        meal +
-        "장"
+        "원\n" +
+        "대인 식권 " +
+        adultMeal +
+        "장 / 소인 식권 " +
+        childMeal +
+        "장\n" +
+        "답례봉투 " +
+        replyEnvelope +
+        "개\n" +
+        "접수방법: " +
+        selectedPayment
       );
 
 
-      document.getElementById("name").value =
-        "";
+      document.getElementById("name").value = "";
 
-      document.getElementById("amount").value =
-        "";
+      document.getElementById("amount").value = "";
 
-      document.getElementById("adultMeal").value =
-  "0";
+      document.getElementById("adultMeal").value = "0";
 
-document.getElementById("childMeal").value =
-  "0";
+      document.getElementById("childMeal").value = "0";
 
-document.getElementById("replyEnvelope").value =
-  "0";
+      document.getElementById("replyEnvelope").value = "0";
+
+
+      selectedPayment = "현금";
+
+
+      document
+        .querySelectorAll("#cashButton, #transferButton")
+        .forEach(function(btn) {
+
+          btn.classList.remove("active");
+
+        });
+
+
+      document
+        .getElementById("cashButton")
+        .classList.add("active");
+
 
       await loadRecords();
+
     }
-selectedPayment = "현금";
 
-document
-  .querySelectorAll("#cashButton, #transferButton")
-  .forEach(function(btn) {
-    btn.classList.remove("active");
-  });
-
-document
-  .getElementById("cashButton")
-  .classList.add("active");
 
     button.disabled = false;
 
-    button.textContent =
-      "접수하기";
+    button.textContent = "접수하기";
+
   }
 
 
@@ -860,6 +903,7 @@ document
 
     const list =
       document.getElementById("recordList");
+
 
     list.innerHTML =
       '<div class="empty">불러오는 중...</div>';
@@ -892,6 +936,7 @@ document
     updateSummary();
 
     renderRecords();
+
   }
 
 
@@ -901,105 +946,95 @@ document
    * =====================================
    */
 
- function updateSummary() {
+  function updateSummary() {
 
-  const count =
-    records.length;
-
-
-  const total =
-    records.reduce(
-      function(sum, item) {
-
-        return (
-          sum +
-          Number(item.amount || 0)
-        );
-
-      },
-      0
-    );
+    const count =
+      records.length;
 
 
-  const adultMealTotal =
-    records.reduce(
-      function(sum, item) {
+    const total =
+      records.reduce(
+        function(sum, item) {
 
-        return (
-          sum +
-          Number(item.adult_meal || 0)
-        );
+          return sum +
+            Number(item.amount || 0);
 
-      },
-      0
-    );
+        },
+        0
+      );
 
 
-  const childMealTotal =
-    records.reduce(
-      function(sum, item) {
+    const adultMealTotal =
+      records.reduce(
+        function(sum, item) {
 
-        return (
-          sum +
-          Number(item.child_meal || 0)
-        );
+          return sum +
+            Number(item.adult_meal || 0);
 
-      },
-      0
-    );
+        },
+        0
+      );
 
 
-  const replyEnvelopeTotal =
-    records.reduce(
-      function(sum, item) {
+    const childMealTotal =
+      records.reduce(
+        function(sum, item) {
 
-        return (
-          sum +
-          Number(item.reply_envelope || 0)
-        );
+          return sum +
+            Number(item.child_meal || 0);
 
-      },
-      0
-    );
+        },
+        0
+      );
 
 
-  const transferTotal =
-    records.filter(
-      function(item) {
-        return item.payment_method === "계좌이체";
-      }
-    ).length;
+    const replyEnvelopeTotal =
+      records.reduce(
+        function(sum, item) {
+
+          return sum +
+            Number(item.reply_envelope || 0);
+
+        },
+        0
+      );
 
 
-  document.getElementById("count").textContent =
-    count.toLocaleString() +
-    "명";
+    const transferTotal =
+      records.filter(
+        function(item) {
+
+          return item.payment_method === "계좌이체";
+
+        }
+      ).length;
 
 
-  document.getElementById("total").textContent =
-    total.toLocaleString() +
-    "원";
+    document.getElementById("count").textContent =
+      count.toLocaleString() + "명";
 
 
-  document.getElementById("adultMealTotal").textContent =
-    adultMealTotal.toLocaleString() +
-    "장";
+    document.getElementById("total").textContent =
+      total.toLocaleString() + "원";
 
 
-  document.getElementById("childMealTotal").textContent =
-    childMealTotal.toLocaleString() +
-    "장";
+    document.getElementById("adultMealTotal").textContent =
+      adultMealTotal.toLocaleString() + "장";
 
 
-  document.getElementById("replyEnvelopeTotal").textContent =
-    replyEnvelopeTotal.toLocaleString() +
-    "개";
+    document.getElementById("childMealTotal").textContent =
+      childMealTotal.toLocaleString() + "장";
 
 
-  document.getElementById("transferTotal").textContent =
-    transferTotal.toLocaleString() +
-    "명";
-}
+    document.getElementById("replyEnvelopeTotal").textContent =
+      replyEnvelopeTotal.toLocaleString() + "개";
+
+
+    document.getElementById("transferTotal").textContent =
+      transferTotal.toLocaleString() + "명";
+
+  }
+
 
   /*
    * =====================================
@@ -1011,16 +1046,24 @@ document
 
     selectedFilter = filter;
 
+
     document
       .querySelectorAll(".filter-button")
       .forEach(function(btn) {
+
         btn.classList.remove("active");
+
       });
+
 
     button.classList.add("active");
 
+
     renderRecords();
+
   }
+
+
   /*
    * =====================================
    * 접수내역 삭제
@@ -1031,13 +1074,35 @@ document
 
     const item =
       records.find(function(record) {
+
         return String(record.id) === String(id);
+
       });
 
+
     if (!item) {
+
       alert("삭제할 접수내역을 찾을 수 없습니다.");
+
       return;
+
     }
+
+
+    const adultMeal =
+      Number(item.adult_meal || 0);
+
+
+    const childMeal =
+      Number(item.child_meal || 0);
+
+
+    const replyEnvelope =
+      Number(item.reply_envelope || 0);
+
+
+    const paymentMethod =
+      item.payment_method || "미기록";
 
 
     const confirmed =
@@ -1047,21 +1112,23 @@ document
         " / " +
         Number(item.amount || 0).toLocaleString() +
         "원\n" +
-"대인 식권 " +
-adultMeal +
-"장 / 소인 식권 " +
-childMeal +
-"장\n" +
-"답례봉투 " +
-replyEnvelope +
-"개\n" +
-"접수방법: " +
-selectedPayment
+        "대인 식권 " +
+        adultMeal +
+        "장 / 소인 식권 " +
+        childMeal +
+        "장\n" +
+        "답례봉투 " +
+        replyEnvelope +
+        "개\n" +
+        "접수방법: " +
+        paymentMethod
       );
 
 
     if (!confirmed) {
+
       return;
+
     }
 
 
@@ -1079,12 +1146,15 @@ selectedPayment
         result.error
       );
 
+
       alert(
         "삭제에 실패했습니다.\n\n" +
         result.error.message
       );
 
+
       return;
+
     }
 
 
@@ -1095,7 +1165,9 @@ selectedPayment
 
 
     await loadRecords();
+
   }
+
 
   /*
    * =====================================
@@ -1104,139 +1176,159 @@ selectedPayment
    */
 
   function renderRecords() {
-function renderRecords() {
 
-  const list =
-    document.getElementById("recordList");
-
-  const search =
-    document
-      .getElementById("search")
-      .value
-      .trim()
-      .toLowerCase();
+    const list =
+      document.getElementById("recordList");
 
 
-  let filtered =
-    records.filter(function(item) {
-
-      const matchesSide =
-        selectedFilter === "전체" ||
-        item.side === selectedFilter;
-
-
-      const matchesSearch =
-        !search ||
-        String(item.name || "")
-          .toLowerCase()
-          .includes(search);
+    const search =
+      document
+        .getElementById("search")
+        .value
+        .trim()
+        .toLowerCase();
 
 
-      return (
-        matchesSide &&
-        matchesSearch
-      );
-    });
+    const filtered =
+      records.filter(function(item) {
+
+        const matchesSide =
+          selectedFilter === "전체" ||
+          item.side === selectedFilter;
 
 
-  if (filtered.length === 0) {
+        const matchesSearch =
+          !search ||
+          String(item.name || "")
+            .toLowerCase()
+            .includes(search);
+
+
+        return matchesSide && matchesSearch;
+
+      });
+
+
+    if (filtered.length === 0) {
+
+      list.innerHTML =
+        '<div class="empty">접수내역이 없습니다.</div>';
+
+      return;
+
+    }
+
 
     list.innerHTML =
-      '<div class="empty">접수내역이 없습니다.</div>';
+      filtered
+        .map(function(item) {
 
-    return;
+          const side =
+            item.side || "-";
+
+
+          const name =
+            item.name || "-";
+
+
+          const amount =
+            Number(item.amount || 0)
+              .toLocaleString();
+
+
+          const adultMeal =
+            Number(item.adult_meal || 0);
+
+
+          const childMeal =
+            Number(item.child_meal || 0);
+
+
+          const replyEnvelope =
+            Number(item.reply_envelope || 0);
+
+
+          const paymentMethod =
+            item.payment_method || "미기록";
+
+
+          const recorder =
+            item.recorder || "미입력";
+
+
+          return `
+            <div class="record">
+
+              <div class="record-main">
+
+                <div class="record-name">
+                  ${escapeHtml(name)}
+                </div>
+
+                <div class="record-amount">
+                  ${amount}원
+                </div>
+
+              </div>
+
+
+              <div class="record-info">
+
+                <span class="badge">
+                  ${escapeHtml(side)}
+                </span>
+
+
+                <span class="badge">
+                  ${
+                    paymentMethod === "계좌이체"
+                      ? "🏦 계좌이체"
+                      : paymentMethod === "현금"
+                        ? "💵 현금"
+                        : "❓ 미기록"
+                  }
+                </span>
+
+
+                <span>
+                  🎫 대인 ${adultMeal}장
+                </span>
+
+
+                <span>
+                  🧒 소인 ${childMeal}장
+                </span>
+
+
+                <span>
+                  💌 답례봉투 ${replyEnvelope}개
+                </span>
+
+
+                <span>
+                  👤 ${escapeHtml(recorder)}
+                </span>
+
+              </div>
+
+
+              <button
+                type="button"
+                class="delete-button"
+                onclick="deleteRecord('${item.id}')"
+              >
+                🗑 삭제
+              </button>
+
+            </div>
+          `;
+
+        })
+        .join("");
+
   }
 
 
-  list.innerHTML =
-    filtered
-      .map(function(item) {
-
-        const side =
-          item.side || "-";
-
-        const name =
-          item.name || "-";
-
-        const amount =
-          Number(item.amount || 0)
-            .toLocaleString();
-
-        const adultMeal =
-          Number(item.adult_meal || 0);
-
-        const childMeal =
-          Number(item.child_meal || 0);
-
-        const replyEnvelope =
-          Number(item.reply_envelope || 0);
-
-        const paymentMethod =
-          item.payment_method || "현금";
-
-        const recorder =
-          item.recorder || "미입력";
-
-
-        return `
-          <div class="record">
-
-            <div class="record-main">
-
-              <div class="record-name">
-                ${escapeHtml(name)}
-              </div>
-
-              <div class="record-amount">
-                ${amount}원
-              </div>
-
-            </div>
-
-            <div class="record-info">
-
-              <span class="badge">
-                ${escapeHtml(side)}
-              </span>
-
-              <span class="badge">
-                ${paymentMethod === "계좌이체"
-                  ? "🏦 계좌이체"
-                  : "💵 현금"}
-              </span>
-
-              <span>
-                🎫 대인 ${adultMeal}장
-              </span>
-
-              <span>
-                🧒 소인 ${childMeal}장
-              </span>
-
-              <span>
-                💌 답례봉투 ${replyEnvelope}개
-              </span>
-
-              <span>
-                👤 ${escapeHtml(recorder)}
-              </span>
-
-            </div>
-
-            <button
-              type="button"
-              class="delete-button"
-              onclick="deleteRecord('${item.id}')"
-            >
-              🗑 삭제
-            </button>
-
-          </div>
-        `;
-
-      })
-      .join("");
-}
   /*
    * =====================================
    * HTML 문자 안전 처리
@@ -1251,6 +1343,7 @@ function renderRecords() {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+
   }
 
 
