@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,20 +27,21 @@
 
     button,
     input,
-   ```css
-textarea {
-  width: 100%;
-  height: 48px;
-  padding: 13px;
-  border: 1px solid #ddd;
-  border-radius: 11px;
-  font-size: 16px;
-  outline: none;
-  resize: none;
-  margin-bottom: 17px;
-  background: white;
-}
-```
+    textarea {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 620px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 32px 18px 30px;
+    }
 
     .header {
       text-align: center;
@@ -100,6 +100,26 @@ textarea {
       border-color: #333;
     }
 
+    .envelope-number-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f7f5f2;
+      border-radius: 12px;
+      padding: 11px 14px;
+      margin-bottom: 20px;
+    }
+
+    .envelope-number-box span {
+      color: #888;
+      font-size: 13px;
+    }
+
+    .envelope-number-box strong {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
     input {
       width: 100%;
       padding: 13px;
@@ -118,13 +138,13 @@ textarea {
 
     textarea {
       width: 100%;
+      height: 48px;
       padding: 13px;
       border: 1px solid #ddd;
       border-radius: 11px;
-      font-size: 15px;
+      font-size: 16px;
       outline: none;
-      resize: vertical;
-      min-height: 70px;
+      resize: none;
       margin-bottom: 17px;
       background: white;
     }
@@ -172,7 +192,6 @@ textarea {
       word-break: break-word;
     }
 
-    /* 화면 전환 */
     .page {
       display: none;
     }
@@ -181,7 +200,6 @@ textarea {
       display: block;
     }
 
-    /* 통계 */
     .summary {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -335,7 +353,6 @@ textarea {
       margin-top: 20px;
     }
 
-    /* 하단 탭 */
     .bottom-nav {
       position: fixed;
       left: 50%;
@@ -428,10 +445,13 @@ textarea {
         </button>
 
       </div>
-<div class="envelope-number-box">
-  <span>봉투번호</span>
-  <strong id="nextEnvelopeNumber">1</strong>
-</div>
+
+
+      <div class="envelope-number-box">
+        <span>현재 봉투번호</span>
+        <strong id="nextEnvelopeNumber">1</strong>
+      </div>
+
 
       <span class="label">이름</span>
 
@@ -496,6 +516,7 @@ textarea {
         </button>
 
       </div>
+
 
       <input
         id="amount"
@@ -759,7 +780,7 @@ textarea {
    */
 
   const SUPABASE_URL =
-    "https://snsschroqinfhqdopxyv.supabase.co";
+    "https://snsschroqinfhqdopxyu.supabase.co";
 
   const SUPABASE_KEY =
     "sb_publishable_XURZS8NolmcPdWztVI5uzA_4ULYxiZI";
@@ -784,6 +805,8 @@ textarea {
   let records = [];
 
   let selectedPayment = "현금";
+
+  let nextEnvelopeNumber = 1;
 
 
   /*
@@ -854,6 +877,59 @@ textarea {
 
   /*
    * =====================================
+   * 다음 봉투번호 계산
+   * =====================================
+   */
+
+  function updateNextEnvelopeNumber() {
+
+    const sideNumbers =
+      records
+        .filter(function(item) {
+
+          return (
+            item.side === selectedSide &&
+            item.envelope_number !== null &&
+            item.envelope_number !== undefined &&
+            Number(item.envelope_number) > 0
+          );
+
+        })
+        .map(function(item) {
+
+          return Number(item.envelope_number);
+
+        });
+
+
+    if (sideNumbers.length === 0) {
+
+      nextEnvelopeNumber = 1;
+
+    } else {
+
+      nextEnvelopeNumber =
+        Math.max.apply(null, sideNumbers) + 1;
+
+    }
+
+
+    const numberElement =
+      document.getElementById("nextEnvelopeNumber");
+
+
+    if (numberElement) {
+
+      numberElement.textContent =
+        nextEnvelopeNumber;
+
+    }
+
+  }
+
+
+  /*
+   * =====================================
    * 신랑 / 신부 선택
    * =====================================
    */
@@ -878,6 +954,9 @@ textarea {
 
 
     button.classList.add("active");
+
+
+    updateNextEnvelopeNumber();
 
   }
 
@@ -915,7 +994,8 @@ textarea {
 
   function setAmount(amount) {
 
-    document.getElementById("amount").value = amount;
+    document.getElementById("amount").value =
+      amount;
 
   }
 
@@ -983,6 +1063,7 @@ textarea {
         .focus();
 
       return;
+
     }
 
 
@@ -995,6 +1076,7 @@ textarea {
         .focus();
 
       return;
+
     }
 
 
@@ -1003,6 +1085,14 @@ textarea {
     button.textContent = "저장 중...";
 
     status.textContent = "";
+
+
+    /*
+     * 현재 화면에 표시된 번호를 저장
+     */
+
+    const envelopeNumber =
+      nextEnvelopeNumber;
 
 
     const result =
@@ -1016,7 +1106,8 @@ textarea {
           child_meal: childMeal,
           reply_envelope: replyEnvelope,
           payment_method: selectedPayment,
-          memo: memo || null
+          memo: memo || null,
+          envelope_number: envelopeNumber
         });
 
 
@@ -1027,9 +1118,11 @@ textarea {
         result.error
       );
 
+
       status.textContent =
         "❌ 저장 실패: " +
         result.error.message;
+
 
       alert(
         "저장에 실패했습니다.\n\n" +
@@ -1046,6 +1139,9 @@ textarea {
       alert(
         name +
         "님 접수가 완료되었습니다!\n\n" +
+        "봉투번호 " +
+        envelopeNumber +
+        "번\n" +
         amount.toLocaleString() +
         "원\n" +
         "대인 식권 " +
@@ -1144,6 +1240,7 @@ textarea {
       }
 
       return;
+
     }
 
 
@@ -1152,6 +1249,8 @@ textarea {
 
 
     updateSummary();
+
+    updateNextEnvelopeNumber();
 
     renderRecords();
 
@@ -1323,9 +1422,21 @@ textarea {
       item.payment_method || "미기록";
 
 
+    const envelopeNumber =
+      item.envelope_number;
+
+
+    const envelopeText =
+      envelopeNumber !== null &&
+      envelopeNumber !== undefined
+        ? "봉투번호 " + envelopeNumber + "번\n"
+        : "";
+
+
     const confirmed =
       confirm(
         "정말 삭제하시겠습니까?\n\n" +
+        envelopeText +
         item.name +
         " / " +
         Number(item.amount || 0).toLocaleString() +
@@ -1481,6 +1592,19 @@ textarea {
             item.memo || "";
 
 
+          const envelopeNumber =
+            item.envelope_number;
+
+
+          const envelopeText =
+            envelopeNumber !== null &&
+            envelopeNumber !== undefined
+              ? "🎟 봉투 " +
+                Number(envelopeNumber) +
+                "번"
+              : "🎟 번호 없음";
+
+
           return `
             <div class="record">
 
@@ -1498,6 +1622,11 @@ textarea {
 
 
               <div class="record-info">
+
+                <span class="badge">
+                  ${escapeHtml(envelopeText)}
+                </span>
+
 
                 <span class="badge">
                   ${escapeHtml(side)}
@@ -1590,4 +1719,3 @@ textarea {
 
 </body>
 </html>
-```
