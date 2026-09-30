@@ -769,47 +769,84 @@
 
   </div>
 
-  <!-- 총 현황 -->
+<!-- 총 현황 -->
 
-  <div id="page-summary" class="page">
+<div id="page-summary" class="page">
 
+  <div class="card">
 
-<div class="summary">
+    <span class="label">현황 구분</span>
 
-  <div class="summary-box">
-    <div class="number" id="count">-</div>
-    <div class="title">전체 접수</div>
+    <div class="filter-buttons">
+
+      <button
+        type="button"
+        class="filter-button active"
+        onclick="selectSummarySide('전체', this)"
+      >
+        전체
+      </button>
+
+      <button
+        type="button"
+        class="filter-button"
+        onclick="selectSummarySide('신랑측', this)"
+      >
+        🤵 신랑측
+      </button>
+
+      <button
+        type="button"
+        class="filter-button"
+        onclick="selectSummarySide('신부측', this)"
+      >
+        👰 신부측
+      </button>
+
+    </div>
+
   </div>
 
-  <div class="summary-box">
-    <div class="number" id="total">-</div>
-    <div class="title">총 금액</div>
+
+  <div class="summary">
+
+    <div class="summary-box">
+      <div class="number" id="count">-</div>
+      <div class="title">접수 인원</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="total">-</div>
+      <div class="title">총 금액</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="adultMealTotal">-</div>
+      <div class="title">대인 식권</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="childMealTotal">-</div>
+      <div class="title">소인 식권</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="replyEnvelopeTotal">-</div>
+      <div class="title">답례봉투</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="transferTotal">-</div>
+      <div class="title">계좌이체</div>
+    </div>
+
   </div>
 
-  <div class="summary-box">
-    <div class="number" id="adultMealTotal">-</div>
-    <div class="title">대인 식권</div>
+
+  <div class="notice">
+    💐 축의대 접수 프로그램
   </div>
 
-  <div class="summary-box">
-    <div class="number" id="childMealTotal">-</div>
-    <div class="title">소인 식권</div>
-  </div>
-
-  <div class="summary-box">
-    <div class="number" id="replyEnvelopeTotal">-</div>
-    <div class="title">답례봉투</div>
-  </div>
-
-  <div class="summary-box">
-    <div class="number" id="transferTotal">-</div>
-    <div class="title">계좌이체</div>
-  </div>
-
-</div>
-
-<div class="notice">
-  💐 축의대 접수 프로그램
 </div>
 
 
@@ -970,6 +1007,8 @@ async function login() {
 
   let selectedFilter = "전체";
 
+  let selectedSummarySide = "전체";
+
   let records = [];
 
   let selectedPayment = "현금";
@@ -1042,6 +1081,26 @@ async function login() {
 
       updateSummary();
 
+      function selectSummarySide(side, button) {
+
+  selectedSummarySide = side;
+
+
+  document
+    .querySelectorAll("#page-summary .filter-button")
+    .forEach(function(btn) {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  button.classList.add("active");
+
+
+  updateSummary();
+
+}
     }
 
 
@@ -1609,95 +1668,104 @@ async function login() {
      통계
   ===================================== */
 
-  function updateSummary() {
+ function updateSummary() {
 
-    const count =
-      records.length;
+  const summaryRecords =
+    selectedSummarySide === "전체"
+      ? records
+      : records.filter(function(item) {
 
+          return item.side === selectedSummarySide;
 
-    const total =
-      records.reduce(
-        function(sum, item) {
-
-          return sum +
-            Number(item.amount || 0);
-
-        },
-        0
-      );
+        });
 
 
-    const adultMealTotal =
-      records.reduce(
-        function(sum, item) {
-
-          return sum +
-            Number(item.adult_meal || 0);
-
-        },
-        0
-      );
+  const count =
+    summaryRecords.length;
 
 
-    const childMealTotal =
-      records.reduce(
-        function(sum, item) {
+  const total =
+    summaryRecords.reduce(
+      function(sum, item) {
 
-          return sum +
-            Number(item.child_meal || 0);
+        return sum +
+          Number(item.amount || 0);
 
-        },
-        0
-      );
-
-
-    const replyEnvelopeTotal =
-      records.reduce(
-        function(sum, item) {
-
-          return sum +
-            Number(item.reply_envelope || 0);
-
-        },
-        0
-      );
+      },
+      0
+    );
 
 
-    const transferTotal =
-      records.filter(
-        function(item) {
+  const adultMealTotal =
+    summaryRecords.reduce(
+      function(sum, item) {
 
-          return item.payment_method === "계좌이체";
+        return sum +
+          Number(item.adult_meal || 0);
 
-        }
-      ).length;
-
-
-    document.getElementById("count").textContent =
-      count.toLocaleString() + "명";
+      },
+      0
+    );
 
 
-    document.getElementById("total").textContent =
-      total.toLocaleString() + "원";
+  const childMealTotal =
+    summaryRecords.reduce(
+      function(sum, item) {
+
+        return sum +
+          Number(item.child_meal || 0);
+
+      },
+      0
+    );
 
 
-    document.getElementById("adultMealTotal").textContent =
-      adultMealTotal.toLocaleString() + "장";
+  const replyEnvelopeTotal =
+    summaryRecords.reduce(
+      function(sum, item) {
+
+        return sum +
+          Number(item.reply_envelope || 0);
+
+      },
+      0
+    );
 
 
-    document.getElementById("childMealTotal").textContent =
-      childMealTotal.toLocaleString() + "장";
+  const transferTotal =
+    summaryRecords.filter(
+      function(item) {
+
+        return item.payment_method === "계좌이체";
+
+      }
+    ).length;
 
 
-    document.getElementById("replyEnvelopeTotal").textContent =
-      replyEnvelopeTotal.toLocaleString() + "개";
+  document.getElementById("count").textContent =
+    count.toLocaleString() + "명";
 
 
-    document.getElementById("transferTotal").textContent =
-      transferTotal.toLocaleString() + "명";
+  document.getElementById("total").textContent =
+    total.toLocaleString() + "원";
 
-  }
 
+  document.getElementById("adultMealTotal").textContent =
+    adultMealTotal.toLocaleString() + "장";
+
+
+  document.getElementById("childMealTotal").textContent =
+    childMealTotal.toLocaleString() + "장";
+
+
+  document.getElementById("replyEnvelopeTotal").textContent =
+    replyEnvelopeTotal.toLocaleString() + "개";
+
+
+  document.getElementById("transferTotal").textContent =
+    transferTotal.toLocaleString() + "명";
+
+}
 
   /* =====================================
      필터 선택
