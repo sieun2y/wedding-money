@@ -775,8 +775,6 @@
 
   <div class="card">
 
-    <span class="label">현황 구분</span>
-
     <div class="filter-buttons">
 
       <button
@@ -1080,28 +1078,6 @@ async function login() {
         .classList.add("active");
 
       updateSummary();
-
-      function selectSummarySide(side, button) {
-
-  selectedSummarySide = side;
-
-
-  document
-    .querySelectorAll("#page-summary .filter-button")
-    .forEach(function(btn) {
-
-      btn.classList.remove("active");
-
-    });
-
-
-  button.classList.add("active");
-
-
-  updateSummary();
-
-}
-    }
 
 
     window.scrollTo({
@@ -1791,6 +1767,22 @@ async function login() {
     renderRecords();
 
   }
+
+  function selectSummarySide(side, button) {
+
+  selectedSummarySide = side;
+
+  document
+    .querySelectorAll("#page-summary .filter-button")
+    .forEach(function(btn) {
+      btn.classList.remove("active");
+    });
+
+  button.classList.add("active");
+
+  updateSummary();
+
+}
 
   /* =====================================
      접수내역 수정
