@@ -806,7 +806,31 @@
   let records = [];
 
   let selectedPayment = "현금";
+  /*
+   * =====================================
+   * 다음 봉투번호 계산
+   * =====================================
+   */
 
+  function updateNextEnvelopeNumber() {
+
+    const sideRecords =
+      records.filter(function(item) {
+        return item.side === selectedSide;
+      });
+
+    const maxNumber =
+      sideRecords.reduce(
+        function(max, item) {
+          const number = Number(item.envelope_number || 0);
+          return Math.max(max, number);
+        },
+        0
+      );
+
+    document.getElementById("nextEnvelopeNumber").textContent =
+      maxNumber + 1;
+  }
   let nextEnvelopeNumber = 1;
 
 
@@ -956,7 +980,6 @@
 
     button.classList.add("active");
 
-
     updateNextEnvelopeNumber();
 
   }
@@ -1096,18 +1119,24 @@
       nextEnvelopeNumber;
 
 
+        const nextEnvelopeNumber =
+      Number(
+        document.getElementById("nextEnvelopeNumber").textContent
+      );
+
     const result =
       await supabaseClient
         .from("gifts")
         .insert({
           side: selectedSide,
+          envelope_number: nextEnvelopeNumber,
           name: name,
           amount: amount,
           adult_meal: adultMeal,
           child_meal: childMeal,
           reply_envelope: replyEnvelope,
           payment_method: selectedPayment,
-          memo: memo || null,
+          memo: memo || null
         });
 
 
@@ -1189,6 +1218,8 @@
 
       await loadRecords();
 
+      updateNextEnvelopeNumber();
+      
     }
 
 
@@ -1249,10 +1280,8 @@
 
 
     updateSummary();
-
-    updateNextEnvelopeNumber();
-
     renderRecords();
+    updateNextEnvelopeNumber();
 
   }
 
@@ -1566,6 +1595,9 @@
           const name =
             item.name || "-";
 
+          const envelopeNumber =
+            item.envelope_number || "-";
+
 
           const amount =
             Number(item.amount || 0)
@@ -1622,6 +1654,10 @@
 
 
               <div class="record-info">
+
+<span class="badge">
+  🧧 봉투 ${envelopeNumber}번
+</span>
 
                 <span class="badge">
                   ${escapeHtml(envelopeText)}
