@@ -331,7 +331,19 @@
       color: white;
       border-color: #333;
     }
+/* 신랑측 / 신부측 색상 */
 
+.side-badge.groom {
+  background: #eaf2ff;
+  color: #3972c9;
+  border: 1px solid #d4e4ff;
+}
+
+.side-badge.bride {
+  background: #fff0f5;
+  color: #d66b91;
+  border: 1px solid #ffd9e5;
+}
     .record {
       border-top: 1px solid #eee;
       padding: 14px 0;
@@ -2076,199 +2088,235 @@ function showPage(page) {
   }
 
 
-  /* =====================================
-     접수내역 화면
-  ===================================== */
+ /* =====================================
+   접수내역 화면
+===================================== */
 
-  function renderRecords() {
+function renderRecords() {
 
-    const list =
-      document.getElementById("recordList");
+  const list =
+    document.getElementById("recordList");
 
 
-    if (!list) {
+  if (!list) {
 
-      return;
-
-    }
-
-
-    const searchElement =
-      document.getElementById("search");
-
-
-    const search =
-      searchElement
-        ? searchElement.value.trim().toLowerCase()
-        : "";
-
-
-    const filtered =
-      records.filter(function(item) {
-
-        const matchesSide =
-          selectedFilter === "전체" ||
-          item.side === selectedFilter;
-
-
-        const matchesSearch =
-          !search ||
-          String(item.name || "")
-            .toLowerCase()
-            .includes(search);
-
-
-        return matchesSide && matchesSearch;
-
-      });
-
-
-    if (filtered.length === 0) {
-
-      list.innerHTML =
-        '<div class="empty">접수내역이 없습니다.</div>';
-
-      return;
-
-    }
-
-
-    list.innerHTML =
-      filtered
-        .map(function(item) {
-
-          const side =
-            item.side || "-";
-
-
-          const name =
-            item.name || "-";
-
-
-          const envelopeNumber =
-            item.envelope_number;
-
-
-          const amount =
-            Number(item.amount || 0)
-              .toLocaleString();
-
-
-          const adultMeal =
-            Number(item.adult_meal || 0);
-
-
-          const childMeal =
-            Number(item.child_meal || 0);
-
-
-          const replyEnvelope =
-            Number(item.reply_envelope || 0);
-
-
-          const paymentMethod =
-            item.payment_method || "미기록";
-
-
-          const memo =
-            item.memo || "";
-
-
-          const envelopeText =
-            envelopeNumber !== null &&
-            envelopeNumber !== undefined
-              ? "🧧 봉투 " +
-                Number(envelopeNumber) +
-                "번"
-              : "🧧 번호 없음";
-
-
-          return `
-            <div class="record">
-
-              <div class="record-main">
-
-                <div class="record-name">
-                  ${escapeHtml(name)}
-                </div>
-
-                <div class="record-amount">
-                  ${amount}원
-                </div>
-
-              </div>
-
-
-              <div class="record-info">
-
-                <span class="badge">
-                  ${escapeHtml(envelopeText)}
-                </span>
-
-                <span class="badge">
-                  ${escapeHtml(side)}
-                </span>
-
-                <span class="badge">
-                  ${
-                    paymentMethod === "계좌이체"
-                      ? "🏦 계좌이체"
-                      : paymentMethod === "현금"
-                        ? "💵 현금"
-                        : "❓ 미기록"
-                  }
-                </span>
-
-                <span>
-                  🎫 대인 ${adultMeal}장
-                </span>
-
-                <span>
-                  🧒 소인 ${childMeal}장
-                </span>
-
-                <span>
-                  💌 답례봉투 ${replyEnvelope}개
-                </span>
-
-              </div>
-
-
-              ${
-                memo
-                  ? `
-                    <div class="memo-text">
-                      📝 ${escapeHtml(memo)}
-                    </div>
-                  `
-                  : ""
-              }
-
-<button
-  type="button"
-  class="edit-button"
-  onclick="editRecord('${item.id}')"
->
-  ✏️ 수정
-</button>
-
-              <button
-                type="button"
-                class="delete-button"
-                onclick="deleteRecord('${item.id}')"
-              >
-                🗑 삭제
-              </button>
-
-            </div>
-          `;
-
-        })
-        .join("");
+    return;
 
   }
 
 
+  const searchElement =
+    document.getElementById("search");
+
+
+  const search =
+    searchElement
+      ? searchElement.value.trim().toLowerCase()
+      : "";
+
+
+  const filtered =
+    records.filter(function(item) {
+
+      const matchesSide =
+        selectedFilter === "전체" ||
+        item.side === selectedFilter;
+
+
+      const matchesSearch =
+        !search ||
+        String(item.name || "")
+          .toLowerCase()
+          .includes(search);
+
+
+      return matchesSide && matchesSearch;
+
+    });
+
+
+  if (filtered.length === 0) {
+
+    list.innerHTML =
+      '<div class="empty">접수내역이 없습니다.</div>';
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    filtered
+      .map(function(item) {
+
+        const side =
+          item.side || "-";
+
+
+        const name =
+          item.name || "-";
+
+
+        const envelopeNumber =
+          item.envelope_number;
+
+
+        const amount =
+          Number(item.amount || 0)
+            .toLocaleString();
+
+
+        const adultMeal =
+          Number(item.adult_meal || 0);
+
+
+        const childMeal =
+          Number(item.child_meal || 0);
+
+
+        const replyEnvelope =
+          Number(item.reply_envelope || 0);
+
+
+        const paymentMethod =
+          item.payment_method || "미기록";
+
+
+        const memo =
+          item.memo || "";
+
+
+        /* 신랑측 / 신부측 색상 */
+
+        const sideClass =
+          side === "신랑측"
+            ? "groom"
+            : side === "신부측"
+              ? "bride"
+              : "";
+
+
+        /* 봉투번호 + 구분 합치기 */
+
+        const sideText =
+          envelopeNumber !== null &&
+          envelopeNumber !== undefined
+            ? side + " " + Number(envelopeNumber) + "번"
+            : side;
+
+
+        /* 식권 / 답례봉투 */
+
+        const adultMealText =
+          adultMeal > 0
+            ? `
+              <span>
+                🎫 대인 ${adultMeal}장
+              </span>
+            `
+            : "";
+
+
+        const childMealText =
+          childMeal > 0
+            ? `
+              <span>
+                🧒 소인 ${childMeal}장
+              </span>
+            `
+            : "";
+
+
+        const replyEnvelopeText =
+          replyEnvelope > 0
+            ? `
+              <span>
+                💌 답례봉투 ${replyEnvelope}개
+              </span>
+            `
+            : "";
+
+
+        return `
+          <div class="record">
+
+            <div class="record-main">
+
+              <div class="record-name">
+                ${escapeHtml(name)}
+              </div>
+
+              <div class="record-amount">
+                ${amount}원
+              </div>
+
+            </div>
+
+
+            <div class="record-info">
+
+              <span class="badge side-badge ${sideClass}">
+                ${escapeHtml(sideText)}
+              </span>
+
+
+              <span class="badge">
+                ${
+                  paymentMethod === "계좌이체"
+                    ? "🏦 계좌이체"
+                    : paymentMethod === "현금"
+                      ? "💵 현금"
+                      : "❓ 미기록"
+                }
+              </span>
+
+
+              ${adultMealText}
+
+
+              ${childMealText}
+
+
+              ${replyEnvelopeText}
+
+            </div>
+
+
+            ${
+              memo
+                ? `
+                  <div class="memo-text">
+                    📝 ${escapeHtml(memo)}
+                  </div>
+                `
+                : ""
+            }
+
+
+            <button
+              type="button"
+              class="edit-button"
+              onclick="editRecord('${item.id}')"
+            >
+              ✏️ 수정
+            </button>
+
+
+            <button
+              type="button"
+              class="delete-button"
+              onclick="deleteRecord('${item.id}')"
+            >
+              🗑 삭제
+            </button>
+
+          </div>
+        `;
+
+      })
+      .join("");
+
+}
   /* =====================================
      HTML 문자 안전 처리
   ===================================== */
