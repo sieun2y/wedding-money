@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -403,6 +404,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -415,370 +417,384 @@
     <p>축의금 접수 및 식권 관리</p>
   </div>
 
-
-  <!-- =========================
-       접수하기
-  ========================== -->
+  <!-- 접수하기 -->
 
   <div id="page-register" class="page active">
 
-    <div class="card">
+```
+<div class="card">
 
-      <span class="label">구분</span>
+  <span class="label">구분</span>
 
-      <div class="side-buttons">
+  <div class="side-buttons">
 
-        <button
-          type="button"
-          class="side-button active"
-          onclick="selectSide('신랑측', this)"
-        >
-          🤵 신랑측
-        </button>
+    <button
+      type="button"
+      class="side-button active"
+      onclick="selectSide('신랑측', this)"
+    >
+      🤵 신랑측
+    </button>
 
-        <button
-          type="button"
-          class="side-button"
-          onclick="selectSide('신부측', this)"
-        >
-          👰 신부측
-        </button>
-
-      </div>
-
-
-      <div class="envelope-number-box">
-        <span>현재 봉투번호</span>
-        <strong id="nextEnvelopeNumber">1</strong>
-      </div>
-
-
-      <span class="label">이름</span>
-
-      <input
-        id="name"
-        type="text"
-        placeholder="이름을 입력하세요"
-        autocomplete="off"
-      >
-
-
-      <span class="label">축의금</span>
-
-      <div class="amount-buttons">
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(50000)"
-        >
-          5만원
-        </button>
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(100000)"
-        >
-          10만원
-        </button>
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(200000)"
-        >
-          20만원
-        </button>
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(300000)"
-        >
-          30만원
-        </button>
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(500000)"
-        >
-          50만원
-        </button>
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(1000000)"
-        >
-          100만원
-        </button>
-
-      </div>
-
-
-      <input
-        id="amount"
-        type="number"
-        placeholder="금액을 직접 입력하세요"
-        min="0"
-      >
-
-
-      <span class="label">대인 식권</span>
-
-      <input
-        id="adultMeal"
-        type="number"
-        value="0"
-        min="0"
-        placeholder="대인 식권 수량"
-      >
-
-
-      <span class="label">소인 식권</span>
-
-      <input
-        id="childMeal"
-        type="number"
-        value="0"
-        min="0"
-        placeholder="소인 식권 수량"
-      >
-
-
-      <span class="label">답례봉투</span>
-
-      <input
-        id="replyEnvelope"
-        type="number"
-        value="0"
-        min="0"
-        placeholder="답례봉투 수량"
-      >
-
-
-      <span class="label">접수방법</span>
-
-      <div class="side-buttons">
-
-        <button
-          type="button"
-          id="cashButton"
-          class="side-button active"
-          onclick="selectPayment('현금', this)"
-        >
-          💵 현금
-        </button>
-
-        <button
-          type="button"
-          id="transferButton"
-          class="side-button"
-          onclick="selectPayment('계좌이체', this)"
-        >
-          🏦 계좌이체
-        </button>
-
-      </div>
-
-
-      <span class="label">메모</span>
-
-      <textarea
-        id="memo"
-        rows="2"
-        placeholder="필요한 내용을 메모해주세요"
-      ></textarea>
-
-
-      <button
-        type="button"
-        id="submitButton"
-        class="submit-button"
-        onclick="submitGift()"
-      >
-        접수하기
-      </button>
-
-      <div id="status" class="status"></div>
-
-    </div>
+    <button
+      type="button"
+      class="side-button"
+      onclick="selectSide('신부측', this)"
+    >
+      👰 신부측
+    </button>
 
   </div>
 
 
-  <!-- =========================
-       접수내역
-  ========================== -->
+  <div class="envelope-number-box">
+    <span>현재 봉투번호</span>
+    <strong id="nextEnvelopeNumber">1</strong>
+  </div>
+
+
+  <span class="label">이름</span>
+
+  <input
+    id="name"
+    type="text"
+    placeholder="이름을 입력하세요"
+    autocomplete="off"
+  >
+
+
+  <span class="label">축의금</span>
+
+  <div class="amount-buttons">
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(50000)"
+    >
+      5만원
+    </button>
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(100000)"
+    >
+      10만원
+    </button>
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(200000)"
+    >
+      20만원
+    </button>
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(300000)"
+    >
+      30만원
+    </button>
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(500000)"
+    >
+      50만원
+    </button>
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(1000000)"
+    >
+      100만원
+    </button>
+
+  </div>
+
+
+  <input
+    id="amount"
+    type="number"
+    placeholder="금액을 직접 입력하세요"
+    min="0"
+  >
+
+
+  <span class="label">대인 식권</span>
+
+  <input
+    id="adultMeal"
+    type="number"
+    value="0"
+    min="0"
+    placeholder="대인 식권 수량"
+  >
+
+
+  <span class="label">소인 식권</span>
+
+  <input
+    id="childMeal"
+    type="number"
+    value="0"
+    min="0"
+    placeholder="소인 식권 수량"
+  >
+
+
+  <span class="label">답례봉투</span>
+
+  <input
+    id="replyEnvelope"
+    type="number"
+    value="0"
+    min="0"
+    placeholder="답례봉투 수량"
+  >
+
+
+  <span class="label">접수방법</span>
+
+  <div class="side-buttons">
+
+    <button
+      type="button"
+      id="cashButton"
+      class="side-button active"
+      onclick="selectPayment('현금', this)"
+    >
+      💵 현금
+    </button>
+
+    <button
+      type="button"
+      id="transferButton"
+      class="side-button"
+      onclick="selectPayment('계좌이체', this)"
+    >
+      🏦 계좌이체
+    </button>
+
+  </div>
+
+
+  <span class="label">메모</span>
+
+  <textarea
+    id="memo"
+    rows="2"
+    placeholder="필요한 내용을 메모해주세요"
+  ></textarea>
+
+
+  <button
+    type="button"
+    id="submitButton"
+    class="submit-button"
+    onclick="submitGift()"
+  >
+    접수하기
+  </button>
+
+  <div id="status" class="status"></div>
+
+</div>
+```
+
+  </div>
+
+  <!-- 접수내역 -->
 
   <div id="page-records" class="page">
 
-    <div class="card">
+```
+<div class="card">
 
-      <div class="list-header">
+  <div class="list-header">
 
-        <h2>📋 접수내역</h2>
+    <h2>📋 접수내역</h2>
 
-        <button
-          type="button"
-          class="refresh-button"
-          onclick="loadRecords()"
-        >
-          🔄 새로고침
-        </button>
-
-      </div>
-
-
-      <input
-        id="search"
-        class="search"
-        type="text"
-        placeholder="🔎 이름 검색"
-        oninput="renderRecords()"
-      >
-
-
-      <div class="filter-buttons">
-
-        <button
-          type="button"
-          class="filter-button active"
-          onclick="selectFilter('전체', this)"
-        >
-          전체
-        </button>
-
-        <button
-          type="button"
-          class="filter-button"
-          onclick="selectFilter('신랑측', this)"
-        >
-          🤵 신랑측
-        </button>
-
-        <button
-          type="button"
-          class="filter-button"
-          onclick="selectFilter('신부측', this)"
-        >
-          👰 신부측
-        </button>
-
-      </div>
-
-
-      <div id="recordList">
-
-        <div class="empty">
-          불러오는 중...
-        </div>
-
-      </div>
-
-    </div>
+    <button
+      type="button"
+      class="refresh-button"
+      onclick="loadRecords()"
+    >
+      🔄 새로고침
+    </button>
 
   </div>
 
 
-  <!-- =========================
-       총 현황
-  ========================== -->
+  <input
+    id="search"
+    class="search"
+    type="text"
+    placeholder="🔎 이름 검색"
+    oninput="renderRecords()"
+  >
 
-  <div id="page-summary" class="page">
 
-    <div class="summary">
+  <div class="filter-buttons">
 
-      <div class="summary-box">
-        <div class="number" id="count">-</div>
-        <div class="title">전체 접수</div>
-      </div>
+    <button
+      type="button"
+      class="filter-button active"
+      onclick="selectFilter('전체', this)"
+    >
+      전체
+    </button>
 
-      <div class="summary-box">
-        <div class="number" id="total">-</div>
-        <div class="title">총 금액</div>
-      </div>
+    <button
+      type="button"
+      class="filter-button"
+      onclick="selectFilter('신랑측', this)"
+    >
+      🤵 신랑측
+    </button>
 
-      <div class="summary-box">
-        <div class="number" id="adultMealTotal">-</div>
-        <div class="title">대인 식권</div>
-      </div>
+    <button
+      type="button"
+      class="filter-button"
+      onclick="selectFilter('신부측', this)"
+    >
+      👰 신부측
+    </button>
 
-      <div class="summary-box">
-        <div class="number" id="childMealTotal">-</div>
-        <div class="title">소인 식권</div>
-      </div>
+  </div>
 
-      <div class="summary-box">
-        <div class="number" id="replyEnvelopeTotal">-</div>
-        <div class="title">답례봉투</div>
-      </div>
 
-      <div class="summary-box">
-        <div class="number" id="transferTotal">-</div>
-        <div class="title">계좌이체</div>
-      </div>
+  <div id="recordList">
 
-    </div>
-
-    <div class="notice">
-      💐 축의대 접수 프로그램
+    <div class="empty">
+      불러오는 중...
     </div>
 
   </div>
 
 </div>
+```
 
+  </div>
 
-<!-- =========================
-     하단 탭
-========================== -->
+  <!-- 총 현황 -->
+
+  <div id="page-summary" class="page">
+
+```
+<div class="summary">
+
+  <div class="summary-box">
+    <div class="number" id="count">-</div>
+    <div class="title">전체 접수</div>
+  </div>
+
+  <div class="summary-box">
+    <div class="number" id="total">-</div>
+    <div class="title">총 금액</div>
+  </div>
+
+  <div class="summary-box">
+    <div class="number" id="adultMealTotal">-</div>
+    <div class="title">대인 식권</div>
+  </div>
+
+  <div class="summary-box">
+    <div class="number" id="childMealTotal">-</div>
+    <div class="title">소인 식권</div>
+  </div>
+
+  <div class="summary-box">
+    <div class="number" id="replyEnvelopeTotal">-</div>
+    <div class="title">답례봉투</div>
+  </div>
+
+  <div class="summary-box">
+    <div class="number" id="transferTotal">-</div>
+    <div class="title">계좌이체</div>
+  </div>
+
+</div>
+
+<div class="notice">
+  💐 축의대 접수 프로그램
+</div>
+```
+
+  </div>
+
+</div>
+
+<!-- 하단 탭 -->
 
 <nav class="bottom-nav">
 
-  <button
-    type="button"
-    id="navRegister"
-    class="nav-button active"
-    onclick="showPage('register')"
-  >
-    <span class="nav-icon">✍️</span>
-    접수하기
+<button
+type="button"
+id="navRegister"
+class="nav-button active"
+onclick="showPage('register')"
+
+>
+
+```
+<span class="nav-icon">✍️</span>
+```
+
+```
+접수하기
+```
+
   </button>
 
-  <button
-    type="button"
-    id="navRecords"
-    class="nav-button"
-    onclick="showPage('records')"
-  >
-    <span class="nav-icon">📋</span>
-    접수내역
+<button
+type="button"
+id="navRecords"
+class="nav-button"
+onclick="showPage('records')"
+
+>
+
+```
+<span class="nav-icon">📋</span>
+```
+
+```
+접수내역
+```
+
   </button>
 
-  <button
-    type="button"
-    id="navSummary"
-    class="nav-button"
-    onclick="showPage('summary')"
-  >
-    <span class="nav-icon">📊</span>
-    총 현황
+<button
+type="button"
+id="navSummary"
+class="nav-button"
+onclick="showPage('summary')"
+
+>
+
+```
+<span class="nav-icon">📊</span>
+```
+
+```
+총 현황
+```
+
   </button>
 
 </nav>
 
-
-  
 <script>
 
-  /*
-   * =====================================
-   * Supabase
-   * =====================================
-   */
+  /* =====================================
+     Supabase
+  ===================================== */
 
   const SUPABASE_URL =
     "https://snsschroqinfhqdopxyv.supabase.co";
@@ -793,11 +809,9 @@
     );
 
 
-  /*
-   * =====================================
-   * 상태값
-   * =====================================
-   */
+  /* =====================================
+     상태값
+  ===================================== */
 
   let selectedSide = "신랑측";
 
@@ -806,58 +820,42 @@
   let records = [];
 
   let selectedPayment = "현금";
-  /*
-   * =====================================
-   * 다음 봉투번호 계산
-   * =====================================
-   */
 
-  function updateNextEnvelopeNumber() {
-
-    const sideRecords =
-      records.filter(function(item) {
-        return item.side === selectedSide;
-      });
-
-    const maxNumber =
-      sideRecords.reduce(
-        function(max, item) {
-          const number = Number(item.envelope_number || 0);
-          return Math.max(max, number);
-        },
-        0
-      );
-
-    document.getElementById("nextEnvelopeNumber").textContent =
-      maxNumber + 1;
-  }
   let nextEnvelopeNumber = 1;
 
 
-  /*
-   * =====================================
-   * 화면 전환
-   * =====================================
-   */
+  /* =====================================
+     화면 전환
+  ===================================== */
 
   function showPage(page) {
 
     document
       .querySelectorAll(".page")
       .forEach(function(section) {
+
         section.classList.remove("active");
+
       });
 
 
-    document
-      .getElementById("page-" + page)
-      .classList.add("active");
+    const targetPage =
+      document.getElementById("page-" + page);
+
+
+    if (targetPage) {
+
+      targetPage.classList.add("active");
+
+    }
 
 
     document
       .querySelectorAll(".nav-button")
       .forEach(function(button) {
+
         button.classList.remove("active");
+
       });
 
 
@@ -900,11 +898,9 @@
   }
 
 
-  /*
-   * =====================================
-   * 다음 봉투번호 계산
-   * =====================================
-   */
+  /* =====================================
+     다음 봉투번호 계산
+  ===================================== */
 
   function updateNextEnvelopeNumber() {
 
@@ -953,11 +949,9 @@
   }
 
 
-  /*
-   * =====================================
-   * 신랑 / 신부 선택
-   * =====================================
-   */
+  /* =====================================
+     신랑 / 신부 선택
+  ===================================== */
 
   function selectSide(side, button) {
 
@@ -965,14 +959,16 @@
 
 
     document
-      .querySelectorAll(".side-button")
+      .querySelectorAll(".side-buttons .side-button")
       .forEach(function(btn) {
 
         if (
           btn.id !== "cashButton" &&
           btn.id !== "transferButton"
         ) {
+
           btn.classList.remove("active");
+
         }
 
       });
@@ -980,16 +976,15 @@
 
     button.classList.add("active");
 
+
     updateNextEnvelopeNumber();
 
   }
 
 
-  /*
-   * =====================================
-   * 접수방법 선택
-   * =====================================
-   */
+  /* =====================================
+     접수방법 선택
+  ===================================== */
 
   function selectPayment(payment, button) {
 
@@ -1010,11 +1005,9 @@
   }
 
 
-  /*
-   * =====================================
-   * 금액
-   * =====================================
-   */
+  /* =====================================
+     금액
+  ===================================== */
 
   function setAmount(amount) {
 
@@ -1024,11 +1017,9 @@
   }
 
 
-  /*
-   * =====================================
-   * 축의금 저장
-   * =====================================
-   */
+  /* =====================================
+     축의금 저장
+  ===================================== */
 
   async function submitGift() {
 
@@ -1112,54 +1103,54 @@
 
 
     /*
-     * 현재 화면에 표시된 번호를 저장
+     * 현재 표시된 봉투번호를 그대로 사용
      */
-
     const envelopeNumber =
       nextEnvelopeNumber;
 
 
-        const nextEnvelopeNumber =
-      Number(
-        document.getElementById("nextEnvelopeNumber").textContent
-      );
+    try {
 
-    const result =
-      await supabaseClient
-        .from("gifts")
-        .insert({
-          side: selectedSide,
-          envelope_number: nextEnvelopeNumber,
-          name: name,
-          amount: amount,
-          adult_meal: adultMeal,
-          child_meal: childMeal,
-          reply_envelope: replyEnvelope,
-          payment_method: selectedPayment,
-          memo: memo || null
-        });
+      const result =
+        await supabaseClient
+          .from("gifts")
+          .insert({
+            side: selectedSide,
+            envelope_number: envelopeNumber,
+            name: name,
+            amount: amount,
+            adult_meal: adultMeal,
+            child_meal: childMeal,
+            reply_envelope: replyEnvelope,
+            payment_method: selectedPayment,
+            memo: memo || null
+          });
 
 
-    if (result.error) {
+      if (result.error) {
 
-      console.error(
-        "Supabase 오류:",
-        result.error
-      );
-
-
-      status.textContent =
-        "❌ 저장 실패: " +
-        result.error.message;
+        console.error(
+          "Supabase 오류:",
+          result.error
+        );
 
 
-      alert(
-        "저장에 실패했습니다.\n\n" +
-        "오류 내용:\n" +
-        result.error.message
-      );
+        status.textContent =
+          "❌ 저장 실패: " +
+          result.error.message;
 
-    } else {
+
+        alert(
+          "저장에 실패했습니다.\n\n" +
+          "오류 내용:\n" +
+          result.error.message
+        );
+
+
+        return;
+
+      }
+
 
       status.textContent =
         "✅ 접수가 완료되었습니다!";
@@ -1218,23 +1209,41 @@
 
       await loadRecords();
 
+
       updateNextEnvelopeNumber();
-      
+
+
+    } catch (error) {
+
+      console.error(
+        "저장 중 오류:",
+        error
+      );
+
+
+      status.textContent =
+        "❌ 저장 실패";
+
+
+      alert(
+        "저장 중 오류가 발생했습니다.\n\n" +
+        error.message
+      );
+
+    } finally {
+
+      button.disabled = false;
+
+      button.textContent = "접수하기";
+
     }
-
-
-    button.disabled = false;
-
-    button.textContent = "접수하기";
 
   }
 
 
-  /*
-   * =====================================
-   * DB에서 접수내역 불러오기
-   * =====================================
-   */
+  /* =====================================
+     DB에서 접수내역 불러오기
+  ===================================== */
 
   async function loadRecords() {
 
@@ -1250,18 +1259,52 @@
     }
 
 
-    const result =
-      await supabaseClient
-        .from("gifts")
-        .select("*")
-        .order("created_at", {
-          ascending: false
-        });
+    try {
+
+      const result =
+        await supabaseClient
+          .from("gifts")
+          .select("*")
+          .order("created_at", {
+            ascending: false
+          });
 
 
-    if (result.error) {
+      if (result.error) {
 
-      console.error(result.error);
+        console.error(result.error);
+
+
+        if (list) {
+
+          list.innerHTML =
+            '<div class="empty">접수내역을 불러오지 못했습니다.</div>';
+
+        }
+
+        return;
+
+      }
+
+
+      records =
+        result.data || [];
+
+
+      updateSummary();
+
+      renderRecords();
+
+      updateNextEnvelopeNumber();
+
+
+    } catch (error) {
+
+      console.error(
+        "불러오기 오류:",
+        error
+      );
+
 
       if (list) {
 
@@ -1270,27 +1313,14 @@
 
       }
 
-      return;
-
     }
-
-
-    records =
-      result.data || [];
-
-
-    updateSummary();
-    renderRecords();
-    updateNextEnvelopeNumber();
 
   }
 
 
-  /*
-   * =====================================
-   * 통계
-   * =====================================
-   */
+  /* =====================================
+     통계
+  ===================================== */
 
   function updateSummary() {
 
@@ -1382,11 +1412,9 @@
   }
 
 
-  /*
-   * =====================================
-   * 필터 선택
-   * =====================================
-   */
+  /* =====================================
+     필터 선택
+  ===================================== */
 
   function selectFilter(filter, button) {
 
@@ -1410,11 +1438,9 @@
   }
 
 
-  /*
-   * =====================================
-   * 접수내역 삭제
-   * =====================================
-   */
+  /* =====================================
+     접수내역 삭제
+  ===================================== */
 
   async function deleteRecord(id) {
 
@@ -1527,11 +1553,9 @@
   }
 
 
-  /*
-   * =====================================
-   * 접수내역 화면
-   * =====================================
-   */
+  /* =====================================
+     접수내역 화면
+  ===================================== */
 
   function renderRecords() {
 
@@ -1546,12 +1570,14 @@
     }
 
 
+    const searchElement =
+      document.getElementById("search");
+
+
     const search =
-      document
-        .getElementById("search")
-        .value
-        .trim()
-        .toLowerCase();
+      searchElement
+        ? searchElement.value.trim().toLowerCase()
+        : "";
 
 
     const filtered =
@@ -1595,8 +1621,9 @@
           const name =
             item.name || "-";
 
+
           const envelopeNumber =
-            item.envelope_number || "-";
+            item.envelope_number;
 
 
           const amount =
@@ -1624,17 +1651,13 @@
             item.memo || "";
 
 
-          const envelopeNumber =
-            item.envelope_number;
-
-
           const envelopeText =
             envelopeNumber !== null &&
             envelopeNumber !== undefined
-              ? "🎟 봉투 " +
+              ? "🧧 봉투 " +
                 Number(envelopeNumber) +
                 "번"
-              : "🎟 번호 없음";
+              : "🧧 번호 없음";
 
 
           return `
@@ -1655,19 +1678,13 @@
 
               <div class="record-info">
 
-<span class="badge">
-  🧧 봉투 ${envelopeNumber}번
-</span>
-
                 <span class="badge">
                   ${escapeHtml(envelopeText)}
                 </span>
 
-
                 <span class="badge">
                   ${escapeHtml(side)}
                 </span>
-
 
                 <span class="badge">
                   ${
@@ -1679,16 +1696,13 @@
                   }
                 </span>
 
-
                 <span>
                   🎫 대인 ${adultMeal}장
                 </span>
 
-
                 <span>
                   🧒 소인 ${childMeal}장
                 </span>
-
 
                 <span>
                   💌 답례봉투 ${replyEnvelope}개
@@ -1725,11 +1739,9 @@
   }
 
 
-  /*
-   * =====================================
-   * HTML 문자 안전 처리
-   * =====================================
-   */
+  /* =====================================
+     HTML 문자 안전 처리
+  ===================================== */
 
   function escapeHtml(value) {
 
@@ -1743,11 +1755,9 @@
   }
 
 
-  /*
-   * =====================================
-   * 시작
-   * =====================================
-   */
+  /* =====================================
+     시작
+  ===================================== */
 
   loadRecords();
 
