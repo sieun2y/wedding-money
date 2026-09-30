@@ -506,14 +506,14 @@
     </div>
 
 
-    <span class="label">접수자</span>
-
-    <input
-      id="recorder"
-      type="text"
-      placeholder="접수자 이름"
-      autocomplete="off"
-    >
+   <div class="input-group">
+  <label>메모</label>
+  <textarea
+    id="memo"
+    rows="2"
+    placeholder="필요한 내용을 메모해주세요"
+  ></textarea>
+</div>
 
 
     <button
@@ -831,7 +831,7 @@
           child_meal: childMeal,
           reply_envelope: replyEnvelope,
           payment_method: selectedPayment,
-          recorder: recorder || null
+          memo: memo || null
         });
 
 
