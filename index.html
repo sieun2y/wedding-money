@@ -1016,85 +1016,78 @@ async function login() {
   let editingRecordId = null;
 
 
-  /* =====================================
-     화면 전환
-  ===================================== */
+ /* =====================================
+   화면 전환
+===================================== */
 
-  function showPage(page) {
+function showPage(page) {
 
-    document
-      .querySelectorAll(".page")
-      .forEach(function(section) {
+  document
+    .querySelectorAll(".page")
+    .forEach(function(section) {
 
-        section.classList.remove("active");
+      section.classList.remove("active");
 
-      });
-
-
-    const targetPage =
-      document.getElementById("page-" + page);
-
-
-    if (targetPage) {
-
-      targetPage.classList.add("active");
-
-    }
-
-
-    document
-      .querySelectorAll(".nav-button")
-      .forEach(function(button) {
-
-        button.classList.remove("active");
-
-      });
-
-
-    if (page === "register") {
-
-      document
-        .getElementById("navRegister")
-        .classList.add("active");
-
-    }
-
-
-    if (page === "records") {
-
-      document
-        .getElementById("navRecords")
-        .classList.add("active");
-
-      renderRecords();
-
-    }
-
-
-    if (page === "summary") {
-
-      document
-        .getElementById("navSummary")
-        .classList.add("active");
-
-      updateSummary();
-
-    }
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
     });
+
+
+  const targetPage =
+    document.getElementById("page-" + page);
+
+
+  if (targetPage) {
+
+    targetPage.classList.add("active");
 
   }
 
 
-  /* =====================================
-     다음 봉투번호 계산
-  ===================================== */
-```
+  document
+    .querySelectorAll(".nav-button")
+    .forEach(function(button) {
 
+      button.classList.remove("active");
+
+    });
+
+
+  if (page === "register") {
+
+    document
+      .getElementById("navRegister")
+      .classList.add("active");
+
+  }
+
+
+  if (page === "records") {
+
+    document
+      .getElementById("navRecords")
+      .classList.add("active");
+
+    renderRecords();
+
+  }
+
+
+  if (page === "summary") {
+
+    document
+      .getElementById("navSummary")
+      .classList.add("active");
+
+    updateSummary();
+
+  }
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
 
   /* =====================================
      다음 봉투번호 계산
