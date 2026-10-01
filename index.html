@@ -952,35 +952,40 @@ const GOOGLE_SHEET_URL =
   "https://script.google.com/macros/s/AKfycbyiV84KvW4-lLZqsMZPcfgIFEl8yz03zD7jOcw2w68XfVezmuiZZzp9dSbFCZBNXjTB1Q/exec";
 
 
-async function syncGoogleSheet(action, gift) {
+function syncGoogleSheet(action, gift) {
 
   try {
 
-    await fetch(GOOGLE_SHEET_URL, {
+    fetch(GOOGLE_SHEET_URL, {
 
       method: "POST",
 
       mode: "no-cors",
+
+      keepalive: true,
 
       headers: {
         "Content-Type": "text/plain;charset=utf-8"
       },
 
       body: JSON.stringify({
-
         action: action,
-
         gift: gift
-
       })
+
+    }).catch(error => {
+
+      console.error(
+        "Google Sheets 연동 오류:",
+        error
+      );
 
     });
 
     console.log(
-      "Google Sheets 연동 완료:",
+      "Google Sheets 동기화 요청:",
       action
     );
-
 
   } catch (error) {
 
