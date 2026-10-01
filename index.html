@@ -755,6 +755,30 @@
 
   <div class="ticket-box">
 
+      <span class="label">접수방법</span>
+
+      <div class="side-buttons">
+
+        <button
+          type="button"
+          id="cashButton"
+          class="side-button active"
+          onclick="selectPayment('현금', this)"
+        >
+          💵 현금
+        </button>
+
+        <button
+          type="button"
+          id="transferButton"
+          class="side-button"
+          onclick="selectPayment('계좌이체', this)"
+        >
+          🏦 계좌이체
+        </button>
+
+      </div>
+
     <span class="ticket-title">대인 식권🧑🏻</span>
 
     <div class="counter">
@@ -858,30 +882,6 @@
   </div>
 
 </div>
-
-      <span class="label">접수방법</span>
-
-      <div class="side-buttons">
-
-        <button
-          type="button"
-          id="cashButton"
-          class="side-button active"
-          onclick="selectPayment('현금', this)"
-        >
-          💵 현금
-        </button>
-
-        <button
-          type="button"
-          id="transferButton"
-          class="side-button"
-          onclick="selectPayment('계좌이체', this)"
-        >
-          🏦 계좌이체
-        </button>
-
-      </div>
 
       <span class="label">메모</span>
 
