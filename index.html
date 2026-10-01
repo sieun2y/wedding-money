@@ -581,6 +581,8 @@
 
     <strong id="nextEnvelopeNumber">1</strong>
 
+    > 
+     봉투번호 수정
   </div>
 
   <input
@@ -1375,6 +1377,9 @@ onclick="showPage('summary')"
 
     document.getElementById("editEnvelopeNumber").value = "";
 
+    document.getElementById("editEnvelopeNumberTitle").style.display =
+  "none";
+
     document.getElementById("editEnvelopeNumber").style.display =
       "none";
 
@@ -2081,6 +2086,9 @@ onclick="showPage('summary')"
 
     document.getElementById("editEnvelopeNumber").value =
       item.envelope_number || "";
+
+    document.getElementById("editEnvelopeNumberTitle").style.display =
+  "block";
 
     document.getElementById("editEnvelopeNumber").style.display =
       "block";
