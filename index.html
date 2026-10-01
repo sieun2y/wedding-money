@@ -2173,6 +2173,38 @@ await syncGoogleSheet(
         .delete()
         .eq("id", id);
 
+    /* Google Sheets에서도 삭제 */
+
+try {
+
+  await fetch(GOOGLE_SCRIPT_URL, {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+
+    body: JSON.stringify({
+
+      action: "delete",
+
+      gift: {
+        id: id
+      }
+
+    })
+
+  });
+
+} catch (googleError) {
+
+  console.error(
+    "Google Sheets 삭제 오류:",
+    googleError
+  );
+
+}
 
     if (result.error) {
 
