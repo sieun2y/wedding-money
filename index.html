@@ -1581,7 +1581,7 @@ try {
 
       gift: {
 
-        id: result.data?.[0]?.id || "",
+       id: result.data?.id || "",
 
         envelope_number: envelopeNumber,
 
@@ -1619,11 +1619,6 @@ try {
 }
 
 /* Google Sheets에도 저장 */
-
-await syncGoogleSheet(
-  "insert",
-  result.data
-);
       
       status.textContent =
         "✅ 접수가 완료되었습니다!";
