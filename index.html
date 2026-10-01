@@ -936,6 +936,9 @@ onclick="showPage('summary')"
   const SUPABASE_KEY =
     "sb_publishable_XURZS8NolmcPdWztVI5uzA_4ULYxiZI";
 
+  const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbyiV84KvW4-lLZqsMZPcfgIFEl8yz03zD7jOcw2w68XfVezmuiZZzp9dSbFCZBNXjTB1Q/exec";
+
   const supabaseClient =
     window.supabase.createClient(
       SUPABASE_URL,
@@ -1557,6 +1560,63 @@ const result =
         return;
 
       }
+
+      /* =====================================
+   Google Sheets 연동
+===================================== */
+
+try {
+
+  await fetch(GOOGLE_SCRIPT_URL, {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+
+    body: JSON.stringify({
+
+      action: "insert",
+
+      gift: {
+
+        id: result.data?.[0]?.id || "",
+
+        envelope_number: envelopeNumber,
+
+        side: selectedSide,
+
+        name: name,
+
+        relation: "",
+
+        amount: amount,
+
+        adult_meal: adultMeal,
+
+        child_meal: childMeal,
+
+        reply_envelope: replyEnvelope,
+
+        payment_method: selectedPayment,
+
+        memo: memo || ""
+
+      }
+
+    })
+
+  });
+
+} catch (googleError) {
+
+  console.error(
+    "Google Sheets 연동 오류:",
+    googleError
+  );
+
+}
 
 /* Google Sheets에도 저장 */
 
