@@ -1399,11 +1399,15 @@ function showPage(page) {
 
       if (editingRecordId) {
 
+const giftId = crypto.randomUUID();
+        
 const result =
   await supabaseClient
     .from("gifts")
     .insert({
 
+      id: giftId,
+      
       side: selectedSide,
 
       envelope_number: envelopeNumber,
@@ -1571,7 +1575,7 @@ const result =
 ===================================== */
 
 syncGoogleSheet("insert", {
-  id: result.data?.id || "",
+  id: giftId,
   envelope_number: envelopeNumber,
   side: selectedSide,
   name: name,
