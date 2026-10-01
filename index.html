@@ -970,14 +970,11 @@ async function syncGoogleSheet(action, gift) {
 
         action: action,
 
-          gift: {
-    id: id,
-    side: item.side,
-    name: item.name,
-    envelope_number: item.envelope_number
-  }
+        gift: gift
 
-})
+      })
+
+    });
 
     console.log(
       "Google Sheets 연동 완료:",
