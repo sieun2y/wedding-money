@@ -2199,11 +2199,14 @@ async function deleteRecord(id) {
   try {
 
     await syncGoogleSheet(
-      "delete",
-      {
-        id: String(id)
-      }
-    );
+  "delete",
+  {
+    id: String(id),
+    side: item.side,
+    name: item.name,
+    envelope_number: item.envelope_number
+  }
+);
 
 
     console.log(
