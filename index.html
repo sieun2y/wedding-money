@@ -224,6 +224,81 @@
       background: white;
     }
 
+.ticket-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 17px;
+}
+
+.ticket-box {
+  text-align: center;
+}
+
+.ticket-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  border-radius: 11px;
+  background: white;
+  overflow: hidden;
+}
+
+.counter-button {
+  width: 32px;
+  height: 42px;
+  border: none;
+  background: #f7f5f2;
+  font-size: 20px;
+  color: #555;
+  padding: 0;
+}
+
+.counter-button:active {
+  background: #e9e7e4;
+}
+
+.counter input {
+  width: 32px;
+  height: 42px;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  background: white;
+}
+
+@media (max-width: 420px) {
+
+  .ticket-row {
+    gap: 5px;
+  }
+
+  .ticket-title {
+    font-size: 12px;
+  }
+
+  .counter-button {
+    width: 28px;
+  }
+
+  .counter input {
+    width: 28px;
+  }
+
+}
+    
     .amount-buttons {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -520,7 +595,7 @@
 
       <div class="login-icon">🔐</div>
 
-      <h1>축의대 관리</h1>
+      <h1>시은❤️성빈 축의대 관리</h1>
 
       <p>비밀번호를 입력해주세요.</p>
 
@@ -676,35 +751,113 @@
         min="0"
       >
 
-      <span class="label">대인 식권</span>
+   <div class="ticket-row">
+
+  <div class="ticket-box">
+
+    <span class="ticket-title">대인 식권</span>
+
+    <div class="counter">
+
+      <button
+        type="button"
+        class="counter-button"
+        onclick="changeCount('adultMeal', -1)"
+      >
+        −
+      </button>
 
       <input
         id="adultMeal"
         type="number"
         value="0"
         min="0"
-        placeholder="대인 식권 수량"
+        readonly
       >
 
-      <span class="label">소인 식권</span>
+      <button
+        type="button"
+        class="counter-button"
+        onclick="changeCount('adultMeal', 1)"
+      >
+        +
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="ticket-box">
+
+    <span class="ticket-title">소인 식권</span>
+
+    <div class="counter">
+
+      <button
+        type="button"
+        class="counter-button"
+        onclick="changeCount('childMeal', -1)"
+      >
+        −
+      </button>
 
       <input
         id="childMeal"
         type="number"
         value="0"
         min="0"
-        placeholder="소인 식권 수량"
+        readonly
       >
 
-      <span class="label">답례봉투</span>
+      <button
+        type="button"
+        class="counter-button"
+        onclick="changeCount('childMeal', 1)"
+      >
+        +
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="ticket-box">
+
+    <span class="ticket-title">답례봉투</span>
+
+    <div class="counter">
+
+      <button
+        type="button"
+        class="counter-button"
+        onclick="changeCount('replyEnvelope', -1)"
+      >
+        −
+      </button>
 
       <input
         id="replyEnvelope"
         type="number"
         value="0"
         min="0"
-        placeholder="답례봉투 수량"
+        readonly
       >
+
+      <button
+        type="button"
+        class="counter-button"
+        onclick="changeCount('replyEnvelope', 1)"
+      >
+        +
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
       <span class="label">접수방법</span>
 
@@ -1335,6 +1488,27 @@
 
   }
 
+  function changeCount(id, amount) {
+
+  const input =
+    document.getElementById(id);
+
+  if (!input) {
+    return;
+  }
+
+  let value =
+    Number(input.value) || 0;
+
+  value += amount;
+
+  if (value < 0) {
+    value = 0;
+  }
+
+  input.value = value;
+
+}
 
   /* =====================================
      입력폼 초기화
