@@ -1398,15 +1398,11 @@ function showPage(page) {
       ===================================== */
 
       if (editingRecordId) {
-
-const giftId = crypto.randomUUID();
         
 const result =
   await supabaseClient
     .from("gifts")
     .insert({
-
-      id: giftId,
       
       side: selectedSide,
 
