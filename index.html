@@ -941,7 +941,55 @@ onclick="showPage('summary')"
       SUPABASE_URL,
       SUPABASE_KEY
     );
+/* =====================================
+   Google Sheets 연동
+===================================== */
 
+const GOOGLE_SHEET_URL =
+  "https://script.google.com/macros/s/AKfycbyiV84KvW4-lLZqsMZPcfgIFEl8yz03zD7jOcw2w68XfVezmuiZZzp9dSbFCZBNXjTB1Q/exec";
+
+
+async function syncGoogleSheet(action, gift) {
+
+  try {
+
+    await fetch(GOOGLE_SHEET_URL, {
+
+      method: "POST",
+
+      mode: "no-cors",
+
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+
+      body: JSON.stringify({
+
+        action: action,
+
+        gift: gift
+
+      })
+
+    });
+
+    console.log(
+      "Google Sheets 연동 완료:",
+      action
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Google Sheets 연동 오류:",
+      error
+    );
+
+  }
+
+}
+  
   /* =====================================
    로그인
 ===================================== */
@@ -1343,30 +1391,32 @@ function showPage(page) {
 
       if (editingRecordId) {
 
-        const result =
-          await supabaseClient
-            .from("gifts")
-            .update({
+const result =
+  await supabaseClient
+    .from("gifts")
+    .insert({
 
-              side: selectedSide,
+      side: selectedSide,
 
-              name: name,
+      envelope_number: envelopeNumber,
 
-              amount: amount,
+      name: name,
 
-              adult_meal: adultMeal,
+      amount: amount,
 
-              child_meal: childMeal,
+      adult_meal: adultMeal,
 
-              reply_envelope: replyEnvelope,
+      child_meal: childMeal,
 
-              payment_method: selectedPayment,
+      reply_envelope: replyEnvelope,
 
-              memo: memo || null
+      payment_method: selectedPayment,
 
-            })
-            .eq("id", editingRecordId);
+      memo: memo || null
 
+    })
+    .select()
+    .single();
 
         if (result.error) {
 
@@ -1508,7 +1558,13 @@ function showPage(page) {
 
       }
 
+/* Google Sheets에도 저장 */
 
+await syncGoogleSheet(
+  "insert",
+  result.data
+);
+      
       status.textContent =
         "✅ 접수가 완료되었습니다!";
 
