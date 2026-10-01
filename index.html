@@ -2089,152 +2089,157 @@ await syncGoogleSheet(
 
   }
   
-  /* =====================================
-     접수내역 삭제
-  ===================================== */
+/* =====================================
+   접수내역 삭제
+===================================== */
 
-  async function deleteRecord(id) {
+async function deleteRecord(id) {
 
-    const item =
-      records.find(function(record) {
+  const item =
+    records.find(function(record) {
 
-        return String(record.id) === String(id);
+      return String(record.id) === String(id);
 
-      });
-
-
-    if (!item) {
-
-      alert("삭제할 접수내역을 찾을 수 없습니다.");
-
-      return;
-
-    }
+    });
 
 
-    const adultMeal =
-      Number(item.adult_meal || 0);
+  if (!item) {
 
+    alert("삭제할 접수내역을 찾을 수 없습니다.");
 
-    const childMeal =
-      Number(item.child_meal || 0);
-
-
-    const replyEnvelope =
-      Number(item.reply_envelope || 0);
-
-
-    const paymentMethod =
-      item.payment_method || "미기록";
-
-
-    const envelopeNumber =
-      item.envelope_number;
-
-
-    const envelopeText =
-      envelopeNumber !== null &&
-      envelopeNumber !== undefined
-        ? "봉투번호 " + envelopeNumber + "번\n"
-        : "";
-
-
-    const confirmed =
-      confirm(
-        "정말 삭제하시겠습니까?\n\n" +
-        envelopeText +
-        item.name +
-        " / " +
-        Number(item.amount || 0).toLocaleString() +
-        "원\n" +
-        "대인 식권 " +
-        adultMeal +
-        "장 / 소인 식권 " +
-        childMeal +
-        "장\n" +
-        "답례봉투 " +
-        replyEnvelope +
-        "개\n" +
-        "접수방법: " +
-        paymentMethod
-      );
-
-
-    if (!confirmed) {
-
-      return;
-
-    }
-
-
-    const result =
-      await supabaseClient
-        .from("gifts")
-        .delete()
-        .eq("id", id);
-
-    /* Google Sheets에서도 삭제 */
-
-try {
-
-  await fetch(GOOGLE_SCRIPT_URL, {
-
-    method: "POST",
-
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
-
-    body: JSON.stringify({
-
-      action: "delete",
-
-      gift: {
-        id: id
-      }
-
-    })
-
-  });
-
-} catch (googleError) {
-
-  console.error(
-    "Google Sheets 삭제 오류:",
-    googleError
-  );
-
-}
-
-    if (result.error) {
-
-      console.error(
-        "삭제 오류:",
-        result.error
-      );
-
-
-      alert(
-        "삭제에 실패했습니다.\n\n" +
-        result.error.message
-      );
-
-
-      return;
-
-    }
-
-
-    alert(
-      item.name +
-      "님의 접수내역이 삭제되었습니다."
-    );
-
-
-    await loadRecords();
+    return;
 
   }
 
+
+  const adultMeal =
+    Number(item.adult_meal || 0);
+
+
+  const childMeal =
+    Number(item.child_meal || 0);
+
+
+  const replyEnvelope =
+    Number(item.reply_envelope || 0);
+
+
+  const paymentMethod =
+    item.payment_method || "미기록";
+
+
+  const envelopeNumber =
+    item.envelope_number;
+
+
+  const envelopeText =
+    envelopeNumber !== null &&
+    envelopeNumber !== undefined
+      ? "봉투번호 " + envelopeNumber + "번\n"
+      : "";
+
+
+  const confirmed =
+    confirm(
+      "정말 삭제하시겠습니까?\n\n" +
+      envelopeText +
+      item.name +
+      " / " +
+      Number(item.amount || 0).toLocaleString() +
+      "원\n" +
+      "대인 식권 " +
+      adultMeal +
+      "장 / 소인 식권 " +
+      childMeal +
+      "장\n" +
+      "답례봉투 " +
+      replyEnvelope +
+      "개\n" +
+      "접수방법: " +
+      paymentMethod
+    );
+
+
+  if (!confirmed) {
+
+    return;
+
+  }
+
+
+  /* =====================================
+     1. Supabase에서 먼저 삭제
+  ===================================== */
+
+  const result =
+    await supabaseClient
+      .from("gifts")
+      .delete()
+      .eq("id", id);
+
+
+  if (result.error) {
+
+    console.error(
+      "Supabase 삭제 오류:",
+      result.error
+    );
+
+
+    alert(
+      "삭제에 실패했습니다.\n\n" +
+      result.error.message
+    );
+
+
+    return;
+
+  }
+
+
+  /* =====================================
+     2. Google Sheets에서도 삭제
+  ===================================== */
+
+  try {
+
+    await syncGoogleSheet(
+      "delete",
+      {
+        id: String(id)
+      }
+    );
+
+
+    console.log(
+      "Google Sheets 삭제 요청 완료:",
+      id
+    );
+
+
+  } catch (googleError) {
+
+    console.error(
+      "Google Sheets 삭제 오류:",
+      googleError
+    );
+
+  }
+
+
+  /* =====================================
+     3. 화면 갱신
+  ===================================== */
+
+  alert(
+    item.name +
+    "님의 접수내역이 삭제되었습니다."
+  );
+
+
+  await loadRecords();
+
+}
 
  /* =====================================
    접수내역 화면
