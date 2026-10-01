@@ -571,14 +571,21 @@
       </div>
 
 
-      <div class="envelope-number-box">
+     <div class="envelope-number-box">
 
-        <span>현재 봉투번호</span>
+  <span id="envelopeNumberLabel">현재 봉투번호</span>
 
-        <strong id="nextEnvelopeNumber">1</strong>
+  <strong id="nextEnvelopeNumber">1</strong>
 
-      </div>
+</div>
 
+<input
+  id="editEnvelopeNumber"
+  type="number"
+  min="1"
+  placeholder="수정할 봉투번호"
+  style="display:none;"
+>
 
       <span class="label">이름</span>
 
@@ -1449,12 +1456,10 @@
 
       if (editingRecordId) {
 
-        const envelopeNumber =
-          records.find(function(item) {
-
-            return String(item.id) === String(editingRecordId);
-
-          })?.envelope_number;
+      const envelopeNumber =
+  Number(
+    document.getElementById("editEnvelopeNumber").value
+  );
 
 
         const result =
@@ -1485,6 +1490,17 @@
             .select()
             .single();
 
+        if (!envelopeNumber || envelopeNumber <= 0) {
+
+  alert("봉투번호를 입력해주세요.");
+
+  document
+    .getElementById("editEnvelopeNumber")
+    .focus();
+
+  return;
+
+}
 
         if (result.error) {
 
@@ -1551,7 +1567,12 @@
 
         resetForm();
 
+document.getElementById("editEnvelopeNumber").value = "";
 
+document.getElementById("editEnvelopeNumber").style.display =
+  "none";
+
+        
         button.textContent =
           "접수하기";
 
@@ -2024,6 +2045,12 @@
 
     /* 입력값 */
 
+document.getElementById("editEnvelopeNumber").value =
+  item.envelope_number || "";
+
+document.getElementById("editEnvelopeNumber").style.display =
+  "block";
+    
     document.getElementById("name").value =
       item.name || "";
 
@@ -2074,6 +2101,11 @@
       document
         .getElementById("cashButton")
         .classList.add("active");
+
+      document.getElementById("editEnvelopeNumber").value = "";
+
+document.getElementById("editEnvelopeNumber").style.display =
+  "none";
 
     }
 
