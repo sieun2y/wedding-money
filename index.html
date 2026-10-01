@@ -503,453 +503,483 @@
 
   <div id="loginScreen">
 
-    <div class="login-box">
+```
+<div class="login-box">
 
-      <div class="login-icon">🔐</div>
+  <div class="login-icon">🔐</div>
 
-      <h1>축의대 관리</h1>
+  <h1>축의대 관리</h1>
 
-      <p>비밀번호를 입력해주세요.</p>
+  <p>비밀번호를 입력해주세요.</p>
 
-      <input
-        id="loginPassword"
-        type="password"
-        placeholder="비밀번호"
-        autocomplete="current-password"
-      >
+  <input
+    id="loginPassword"
+    type="password"
+    placeholder="비밀번호"
+    autocomplete="current-password"
+  >
 
-      <button
-        type="button"
-        onclick="login()"
-      >
-        입장하기
-      </button>
+  <button
+    type="button"
+    onclick="login()"
+  >
+    입장하기
+  </button>
 
-      <div id="loginStatus"></div>
+  <div id="loginStatus"></div>
 
-    </div>
+</div>
+```
 
   </div>
 
   <div class="header">
 
-    <div class="icon">💍</div>
+```
+<div class="icon">💍</div>
 
-    <h1>축의대 관리</h1>
+<h1>축의대 관리</h1>
 
-    <p>축의금 접수 및 식권 관리</p>
+<p>축의금 접수 및 식권 관리</p>
+```
 
   </div>
-
 
   <!-- 접수하기 -->
 
   <div id="page-register" class="page active">
 
-    <div class="card">
+```
+<div class="card">
 
-      <span class="label">구분</span>
+  <span class="label">구분</span>
 
-      <div class="side-buttons">
+  <div class="side-buttons">
 
-        <button
-          type="button"
-          class="side-button active"
-          onclick="selectSide('신랑측', this)"
-        >
-          🤵 신랑측
-        </button>
+    <button
+      type="button"
+      class="side-button active"
+      onclick="selectSide('신랑측', this)"
+    >
+      🤵 신랑측
+    </button>
 
-        <button
-          type="button"
-          class="side-button"
-          onclick="selectSide('신부측', this)"
-        >
-          👰 신부측
-        </button>
-
-      </div>
-
-
-     <div class="envelope-number-box">
-
-  <span id="envelopeNumberLabel">현재 봉투번호</span>
-
-  <strong id="nextEnvelopeNumber">1</strong>
-
-</div>
-
-<input
-  id="editEnvelopeNumber"
-  type="number"
-  min="1"
-  placeholder="수정할 봉투번호"
-  style="display:none;"
->
-
-      <span class="label">이름</span>
-
-      <input
-        id="name"
-        type="text"
-        placeholder="이름을 입력하세요"
-        autocomplete="off"
-      >
-
-
-      <span class="label">축의금</span>
-
-      <div class="amount-buttons">
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(50000)"
-        >
-          5만원
-        </button>
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(100000)"
-        >
-          10만원
-        </button>
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(200000)"
-        >
-          20만원
-        </button>
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(300000)"
-        >
-          30만원
-        </button>
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(500000)"
-        >
-          50만원
-        </button>
-
-        <button
-          type="button"
-          class="amount-button"
-          onclick="setAmount(1000000)"
-        >
-          100만원
-        </button>
-
-      </div>
-
-
-      <input
-        id="amount"
-        type="number"
-        placeholder="금액을 직접 입력하세요"
-        min="0"
-      >
-
-
-      <span class="label">대인 식권</span>
-
-      <input
-        id="adultMeal"
-        type="number"
-        value="0"
-        min="0"
-        placeholder="대인 식권 수량"
-      >
-
-
-      <span class="label">소인 식권</span>
-
-      <input
-        id="childMeal"
-        type="number"
-        value="0"
-        min="0"
-        placeholder="소인 식권 수량"
-      >
-
-
-      <span class="label">답례봉투</span>
-
-      <input
-        id="replyEnvelope"
-        type="number"
-        value="0"
-        min="0"
-        placeholder="답례봉투 수량"
-      >
-
-
-      <span class="label">접수방법</span>
-
-      <div class="side-buttons">
-
-        <button
-          type="button"
-          id="cashButton"
-          class="side-button active"
-          onclick="selectPayment('현금', this)"
-        >
-          💵 현금
-        </button>
-
-        <button
-          type="button"
-          id="transferButton"
-          class="side-button"
-          onclick="selectPayment('계좌이체', this)"
-        >
-          🏦 계좌이체
-        </button>
-
-      </div>
-
-
-      <span class="label">메모</span>
-
-      <textarea
-        id="memo"
-        rows="2"
-        placeholder="필요한 내용을 메모해주세요"
-      ></textarea>
-
-
-      <button
-        type="button"
-        id="submitButton"
-        class="submit-button"
-        onclick="submitGift()"
-      >
-        접수하기
-      </button>
-
-      <div id="status" class="status"></div>
-
-    </div>
+    <button
+      type="button"
+      class="side-button"
+      onclick="selectSide('신부측', this)"
+    >
+      👰 신부측
+    </button>
 
   </div>
 
+
+  <div class="envelope-number-box">
+
+    <span id="envelopeNumberLabel">현재 봉투번호</span>
+
+    <strong id="nextEnvelopeNumber">1</strong>
+
+  </div>
+
+  <input
+    id="editEnvelopeNumber"
+    type="number"
+    min="1"
+    placeholder="수정할 봉투번호"
+    style="display:none;"
+  >
+
+
+  <span class="label">이름</span>
+
+  <input
+    id="name"
+    type="text"
+    placeholder="이름을 입력하세요"
+    autocomplete="off"
+  >
+
+
+  <span class="label">축의금</span>
+
+  <div class="amount-buttons">
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(50000)"
+    >
+      5만원
+    </button>
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(100000)"
+    >
+      10만원
+    </button>
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(200000)"
+    >
+      20만원
+    </button>
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(300000)"
+    >
+      30만원
+    </button>
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(500000)"
+    >
+      50만원
+    </button>
+
+    <button
+      type="button"
+      class="amount-button"
+      onclick="setAmount(1000000)"
+    >
+      100만원
+    </button>
+
+  </div>
+
+
+  <input
+    id="amount"
+    type="number"
+    placeholder="금액을 직접 입력하세요"
+    min="0"
+  >
+
+
+  <span class="label">대인 식권</span>
+
+  <input
+    id="adultMeal"
+    type="number"
+    value="0"
+    min="0"
+    placeholder="대인 식권 수량"
+  >
+
+
+  <span class="label">소인 식권</span>
+
+  <input
+    id="childMeal"
+    type="number"
+    value="0"
+    min="0"
+    placeholder="소인 식권 수량"
+  >
+
+
+  <span class="label">답례봉투</span>
+
+  <input
+    id="replyEnvelope"
+    type="number"
+    value="0"
+    min="0"
+    placeholder="답례봉투 수량"
+  >
+
+
+  <span class="label">접수방법</span>
+
+  <div class="side-buttons">
+
+    <button
+      type="button"
+      id="cashButton"
+      class="side-button active"
+      onclick="selectPayment('현금', this)"
+    >
+      💵 현금
+    </button>
+
+    <button
+      type="button"
+      id="transferButton"
+      class="side-button"
+      onclick="selectPayment('계좌이체', this)"
+    >
+      🏦 계좌이체
+    </button>
+
+  </div>
+
+
+  <span class="label">메모</span>
+
+  <textarea
+    id="memo"
+    rows="2"
+    placeholder="필요한 내용을 메모해주세요"
+  ></textarea>
+
+
+  <button
+    type="button"
+    id="submitButton"
+    class="submit-button"
+    onclick="submitGift()"
+  >
+    접수하기
+  </button>
+
+  <div id="status" class="status"></div>
+
+</div>
+```
+
+  </div>
 
   <!-- 접수내역 -->
 
   <div id="page-records" class="page">
 
-    <div class="card">
+```
+<div class="card">
 
-      <div class="list-header">
+  <div class="list-header">
 
-        <h2>📋 접수내역</h2>
+    <h2>📋 접수내역</h2>
 
-        <button
-          type="button"
-          class="refresh-button"
-          onclick="loadRecords()"
-        >
-          🔄 새로고침
-        </button>
+    <button
+      type="button"
+      class="refresh-button"
+      onclick="loadRecords()"
+    >
+      🔄 새로고침
+    </button>
 
-      </div>
-
-
-      <input
-        id="search"
-        class="search"
-        type="text"
-        placeholder="🔎 이름 검색"
-        oninput="renderRecords()"
-      >
+  </div>
 
 
-      <div class="filter-buttons">
-
-        <button
-          type="button"
-          class="filter-button active"
-          onclick="selectFilter('전체', this)"
-        >
-          전체
-        </button>
-
-        <button
-          type="button"
-          class="filter-button"
-          onclick="selectFilter('신랑측', this)"
-        >
-          🤵 신랑측
-        </button>
-
-        <button
-          type="button"
-          class="filter-button"
-          onclick="selectFilter('신부측', this)"
-        >
-          👰 신부측
-        </button>
-
-      </div>
+  <input
+    id="search"
+    class="search"
+    type="text"
+    placeholder="🔎 이름 검색"
+    oninput="renderRecords()"
+  >
 
 
-      <div id="recordList">
+  <div class="filter-buttons">
 
-        <div class="empty">
-          불러오는 중...
-        </div>
+    <button
+      type="button"
+      class="filter-button active"
+      onclick="selectFilter('전체', this)"
+    >
+      전체
+    </button>
 
-      </div>
+    <button
+      type="button"
+      class="filter-button"
+      onclick="selectFilter('신랑측', this)"
+    >
+      🤵 신랑측
+    </button>
 
+    <button
+      type="button"
+      class="filter-button"
+      onclick="selectFilter('신부측', this)"
+    >
+      👰 신부측
+    </button>
+
+  </div>
+
+
+  <div id="recordList">
+
+    <div class="empty">
+      불러오는 중...
     </div>
 
   </div>
 
+</div>
+```
+
+  </div>
 
   <!-- 총 현황 -->
 
   <div id="page-summary" class="page">
 
-    <div class="card">
+```
+<div class="card">
 
-      <div class="filter-buttons">
+  <div class="filter-buttons">
 
-        <button
-          type="button"
-          class="filter-button active"
-          onclick="selectSummarySide('전체', this)"
-        >
-          전체
-        </button>
+    <button
+      type="button"
+      class="filter-button active"
+      onclick="selectSummarySide('전체', this)"
+    >
+      전체
+    </button>
 
-        <button
-          type="button"
-          class="filter-button"
-          onclick="selectSummarySide('신랑측', this)"
-        >
-          🤵 신랑측
-        </button>
+    <button
+      type="button"
+      class="filter-button"
+      onclick="selectSummarySide('신랑측', this)"
+    >
+      🤵 신랑측
+    </button>
 
-        <button
-          type="button"
-          class="filter-button"
-          onclick="selectSummarySide('신부측', this)"
-        >
-          👰 신부측
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="summary">
-
-      <div class="summary-box">
-
-        <div class="number" id="count">-</div>
-
-        <div class="title">접수 인원</div>
-
-      </div>
-
-      <div class="summary-box">
-
-        <div class="number" id="total">-</div>
-
-        <div class="title">총 금액</div>
-
-      </div>
-
-      <div class="summary-box">
-
-        <div class="number" id="adultMealTotal">-</div>
-
-        <div class="title">대인 식권</div>
-
-      </div>
-
-      <div class="summary-box">
-
-        <div class="number" id="childMealTotal">-</div>
-
-        <div class="title">소인 식권</div>
-
-      </div>
-
-      <div class="summary-box">
-
-        <div class="number" id="replyEnvelopeTotal">-</div>
-
-        <div class="title">답례봉투</div>
-
-      </div>
-
-      <div class="summary-box">
-
-        <div class="number" id="transferTotal">-</div>
-
-        <div class="title">계좌이체</div>
-
-      </div>
-
-    </div>
-
-
-    <div class="notice">
-      💐 축의대 접수 프로그램
-    </div>
+    <button
+      type="button"
+      class="filter-button"
+      onclick="selectSummarySide('신부측', this)"
+    >
+      👰 신부측
+    </button>
 
   </div>
 
 </div>
 
 
+<div class="summary">
+
+  <div class="summary-box">
+
+    <div class="number" id="count">-</div>
+
+    <div class="title">접수 인원</div>
+
+  </div>
+
+  <div class="summary-box">
+
+    <div class="number" id="total">-</div>
+
+    <div class="title">총 금액</div>
+
+  </div>
+
+  <div class="summary-box">
+
+    <div class="number" id="adultMealTotal">-</div>
+
+    <div class="title">대인 식권</div>
+
+  </div>
+
+  <div class="summary-box">
+
+    <div class="number" id="childMealTotal">-</div>
+
+    <div class="title">소인 식권</div>
+
+  </div>
+
+  <div class="summary-box">
+
+    <div class="number" id="replyEnvelopeTotal">-</div>
+
+    <div class="title">답례봉투</div>
+
+  </div>
+
+  <div class="summary-box">
+
+    <div class="number" id="transferTotal">-</div>
+
+    <div class="title">계좌이체</div>
+
+  </div>
+
+</div>
+
+
+<div class="notice">
+  💐 축의대 접수 프로그램
+</div>
+```
+
+  </div>
+
+</div>
+
 <!-- 하단 탭 -->
 
 <nav class="bottom-nav">
 
-  <button
-    type="button"
-    id="navRegister"
-    class="nav-button active"
-    onclick="showPage('register')"
-  >
-    <span class="nav-icon">✍️</span>
-    접수하기
+<button
+type="button"
+id="navRegister"
+class="nav-button active"
+onclick="showPage('register')"
+
+>
+
+```
+<span class="nav-icon">✍️</span>
+```
+
+```
+접수하기
+```
+
   </button>
 
-  <button
-    type="button"
-    id="navRecords"
-    class="nav-button"
-    onclick="showPage('records')"
-  >
-    <span class="nav-icon">📋</span>
-    접수내역
+<button
+type="button"
+id="navRecords"
+class="nav-button"
+onclick="showPage('records')"
+
+>
+
+```
+<span class="nav-icon">📋</span>
+```
+
+```
+접수내역
+```
+
   </button>
 
-  <button
-    type="button"
-    id="navSummary"
-    class="nav-button"
-    onclick="showPage('summary')"
-  >
-    <span class="nav-icon">📊</span>
-    총 현황
+<button
+type="button"
+id="navSummary"
+class="nav-button"
+onclick="showPage('summary')"
+
+>
+
+```
+<span class="nav-icon">📊</span>
+```
+
+```
+총 현황
+```
+
   </button>
 
 </nav>
-
 
 <script>
 
@@ -1343,6 +1373,11 @@
 
     document.getElementById("memo").value = "";
 
+    document.getElementById("editEnvelopeNumber").value = "";
+
+    document.getElementById("editEnvelopeNumber").style.display =
+      "none";
+
     selectedPayment = "현금";
 
     document
@@ -1456,10 +1491,25 @@
 
       if (editingRecordId) {
 
-      const envelopeNumber =
-  Number(
-    document.getElementById("editEnvelopeNumber").value
-  );
+        const envelopeNumber =
+          Number(
+            document
+              .getElementById("editEnvelopeNumber")
+              .value
+          );
+
+
+        if (!envelopeNumber || envelopeNumber <= 0) {
+
+          alert("봉투번호를 입력해주세요.");
+
+          document
+            .getElementById("editEnvelopeNumber")
+            .focus();
+
+          return;
+
+        }
 
 
         const result =
@@ -1490,17 +1540,6 @@
             .select()
             .single();
 
-        if (!envelopeNumber || envelopeNumber <= 0) {
-
-  alert("봉투번호를 입력해주세요.");
-
-  document
-    .getElementById("editEnvelopeNumber")
-    .focus();
-
-  return;
-
-}
 
         if (result.error) {
 
@@ -1567,12 +1606,7 @@
 
         resetForm();
 
-document.getElementById("editEnvelopeNumber").value = "";
 
-document.getElementById("editEnvelopeNumber").style.display =
-  "none";
-
-        
         button.textContent =
           "접수하기";
 
@@ -2043,14 +2077,17 @@ document.getElementById("editEnvelopeNumber").style.display =
     });
 
 
+    /* 봉투번호 */
+
+    document.getElementById("editEnvelopeNumber").value =
+      item.envelope_number || "";
+
+    document.getElementById("editEnvelopeNumber").style.display =
+      "block";
+
+
     /* 입력값 */
 
-document.getElementById("editEnvelopeNumber").value =
-  item.envelope_number || "";
-
-document.getElementById("editEnvelopeNumber").style.display =
-  "block";
-    
     document.getElementById("name").value =
       item.name || "";
 
@@ -2102,11 +2139,6 @@ document.getElementById("editEnvelopeNumber").style.display =
         .getElementById("cashButton")
         .classList.add("active");
 
-      document.getElementById("editEnvelopeNumber").value = "";
-
-document.getElementById("editEnvelopeNumber").style.display =
-  "none";
-
     }
 
 
@@ -2126,7 +2158,7 @@ document.getElementById("editEnvelopeNumber").style.display =
     setTimeout(function() {
 
       document
-        .getElementById("name")
+        .getElementById("editEnvelopeNumber")
         .focus();
 
     }, 300);
